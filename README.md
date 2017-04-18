@@ -1,9 +1,7 @@
 # db-class
-
 This project is a simple database class with php and pdo.
 
 ## Installation/Setup
-
 If you want to use the database class for your own project, you can simply follow these instructions:
 
 1. Download the ZIP file of this project
@@ -11,7 +9,6 @@ If you want to use the database class for your own project, you can simply follo
 3. If all requirements, like PHP, PDO and a database that fits to that setup, are fulfilled, you should now be ready to start!
 
 ## Basic Usage
-
 If you have successfully "installed" everything, you can use the class like that:
 
 ### Require database class
@@ -20,7 +17,6 @@ require_once('your_path/DB.php');
 ```
 
 ### Instantiate Class / Connect to Database
-
 To be able to use the class and connect to the database, you have to instantiate it.
 
 To do that, follow that format:
@@ -58,6 +54,65 @@ Default: `PDO::ERRMODE_EXCEPTION`
 Simple example for instantiating the class:
 ```php
 $db = new DB('db-class-example', 'root', '');
+```
+
+### Check Connection to Database
+The method `connected()` gives you the ability to check if the connection to the database was established successfully.
+
+The method requires no arguments at all, so you can just call it and then it will give you a return value of `true` or `false` based on the fact if the connection was established or not.
+
+Example:
+```php
+if ($db->connected()) {
+  echo 'Successfully connected!';
+} else {
+  echo 'Connection failed';
+}
+```
+
+### Select/Get Data from Database
+In order to get data from the database you can use the method `select()` in the following format:
+
+```php
+select(string $sql, $where=null, $fetch_mode=PDO::FETCH_ASSOC)
+```
+
+The following arguments exist:
+
+#### SQL Query (`$sql`)
+The sql to perform the query to the database. (required)
+
+For example:
+
+```sql
+SELECT * FROM `users`
+```
+
+#### SQL Where Clause (`$where`)
+The sql where clause to filter the data from the database and so on. (optional)
+
+Default: `null`
+
+Example:
+```sql
+WHERE `username` = 'Jack' 
+```
+
+#### PDO Fetch Mode (`$fetch_mode`)
+The [pdo fetch mode](http://php.net/manual/en/pdostatement.fetch.php). Defines in which format the data is returned from the database. (optional)
+
+Default: `PDO::FETCH_ASSOC`
+
+Example:
+
+```php
+PDO::FETCH_NUM
+```
+
+An simple example for using everything together:
+
+```php
+$data = $db->select("SELECT * FROM `users`", "WHERE `username` = 'Jack'", PDO::FETCH_NUM);
 ```
 
 ### Configure Error Handling
