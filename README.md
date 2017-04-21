@@ -99,7 +99,7 @@ if ($db->connected()) {
 In order to get data from the database you can use the method `select()` in the following format:
 
 ```php
-select(string $sql, $where=null, $fetch_mode=PDO::FETCH_ASSOC)
+select(string $sql, array $where=null, int $fetch_mode=PDO::FETCH_ASSOC)
 ```
 
 The following arguments exist:
@@ -110,18 +110,20 @@ The sql to perform the query to the database. (required)
 For example:
 
 ```sql
-SELECT * FROM `users`
+SELECT * FROM `users` WHERE `username` = :username
 ```
 
-#### SQL Where Clause (`$where`)
-The sql where clause to filter the data from the database and so on. (optional)
+#### Values for Where Clause (`$where`)
+An array of the values to use in the where clause. (optional)
 
 Default: `null`
 
 Example:
-```sql
-WHERE `username` = 'Jack' 
+```php
+[ 'username' => 'Jack' ]
 ```
+
+Please note that you have to provide an associative array with keys that match to the placeholders in the sql query, unless you are not using the named placeholders in the query. In case you are just using the question marks as the placeholder, you can get rid of the keys.
 
 #### PDO Fetch Mode (`$fetch_mode`)
 The [pdo fetch mode](http://php.net/manual/en/pdostatement.fetch.php). Defines in which format the data is returned from the database. (optional)
@@ -137,7 +139,7 @@ PDO::FETCH_NUM
 An simple example for using everything together:
 
 ```php
-$data = $db->select("SELECT * FROM `users`", "WHERE `username` = 'Jack'", PDO::FETCH_NUM);
+$data = $db->select("SELECT * FROM `users` WHERE `username` = :username", [ 'username' => 'Jack' ], PDO::FETCH_NUM);
 ```
 
 ### Insert Data into Database (`insert()`)
@@ -190,7 +192,7 @@ The method `delete()` provides the ability to delete data from the database.
 You have to follow this format:
 
 ```php
-delete(string $sql, $where=null)
+delete(string $sql, array $where=null)
 ```
 
 These are the existing arguments:
@@ -227,7 +229,7 @@ $deleted = $db->delete("DELETE FROM `users` WHERE `id` = :id", [ 'id' => 3 ]);
 You can update data in your database by the method `update()`, which has this format:
 
 ```php
-update(string $sql, $values)
+update(string $sql, array $values)
 ```
 
 That leads to the following arguments:
