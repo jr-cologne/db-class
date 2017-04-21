@@ -79,7 +79,7 @@
     }
 
     // select/get data from database
-    public function select(string $sql, $where=null, $fetch_mode=PDO::FETCH_ASSOC) {
+    public function select(string $sql, array $where=null, int $fetch_mode=PDO::FETCH_ASSOC) {
       $error_types = self::$error_types;
       $pdo = $this->pdo;
 
@@ -128,7 +128,7 @@
     }
 
     // delete data/rows from database
-    public function delete(string $sql, $where=null) {
+    public function delete(string $sql, array $where=null) {
       $error_types = self::$error_types;
       $pdo = $this->pdo;
 
@@ -153,7 +153,7 @@
     }
 
     // update data/rows in database
-    public function update(string $sql, $values) {
+    public function update(string $sql, array $values) {
       $error_types = self::$error_types;
       $pdo = $this->pdo;
 
