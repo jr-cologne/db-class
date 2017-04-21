@@ -1,6 +1,24 @@
 # db-class
 This project is a simple database class with php and pdo.
 
+## Table of Contents
+1. [Installation/Setup](#installationsetup)
+2. [Basic Usage](#basic-usage)
+	1. [Require Database Class](#require-database-class)
+	2. [Instantiate Class / Connect to Database (`__construct()`)](#instantiate-class--connect-to-database-__construct)
+	3. [Check Connection to Database (`connected()`)](#check-connection-to-database-connected)
+	4. [Select/Get Data from Database (`select()`)](#selectget-data-from-database-select)
+	5. [Insert Data into Database (`insert()`)](#insert-data-into-database-insert)
+	6. [Delete Data/Rows from Database (`delete()`)](#delete-datarows-from-database-delete)
+	7. [Update Data in Database (`update()`)](#update-data-in-database-update)
+	8. [Configure Error Handling (`initErrorHandler()`)](#configure-error-handling-initerrorhandler)
+	9. [Check for Errors (`error()`)](#check-for-errors-error)
+	10. [Get Errors (`getError()`)](#get-errors-geterror)
+3. [Further Examples / Stuff for Testing](#further-examples--stuff-for-testing)
+4. [Contributing](#further-examples--stuff-for-testing)
+5. [Versioning](#versioning)
+6. [License](#license)
+
 ## Installation/Setup
 If you want to use the database class for your own project, you can simply follow these instructions:
 
@@ -11,12 +29,12 @@ If you want to use the database class for your own project, you can simply follo
 ## Basic Usage
 If you have successfully "installed" everything, you can use the class like that:
 
-### Require database class
+### Require Database Class
 ```php
 require_once('your_path/DB.php');
 ```
 
-### Instantiate Class / Connect to Database (`__construct`)
+### Instantiate Class / Connect to Database (`__construct()`)
 To be able to use the class and connect to the database, you have to instantiate it.
 
 To do that, follow that format:
