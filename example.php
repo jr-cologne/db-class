@@ -2,6 +2,7 @@
   require_once('DB.php');
 
   DB::initErrorHandler(
+    'production',
     [
       0 => 'success',
       1 => 'Sorry, the connection to the database is failed!',

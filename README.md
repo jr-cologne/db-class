@@ -303,11 +303,12 @@ Default:
 
 Besides from that you can freely change the error messages to your own liking.
 
-To change the config of the error handling, you must call the static method `initErrorHandler(array $error_types=[], string $env='production')`, which will basically set your specified configs, **before** you are instantiating the class.
+To change the config of the error handling, you must call the static method `initErrorHandler(string $env='production', array $error_types=[])`, which will basically set your specified configs, **before** you are instantiating the class.
 
 Example:
 ```php
 DB::initErrorHandler(
+    'production',
     [
       0 => 'success',
       1 => 'Sorry, the connection to the database is failed!',
@@ -320,15 +321,6 @@ DB::initErrorHandler(
 ```
 
 Always make sure to pass in the whole array, e.g. not just error 2 and 5, because then only error 2 and 5 will exist.
-
-In case you don't want to change the messages, but you would like to switch the environment, you have to pass in an empty array as the first argument like that:
-
-```php
-DB::initErrorHandler(
-    [],
-    'development'
-);
-```
 
 ### Check for Errors (`error()`)
 In case you want to know if an error occured, you can simply call the method `error()` and it will return you `true` or `false` based on the fact whether there is an error or not.
