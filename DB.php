@@ -13,7 +13,7 @@
     protected $error = [ 'code' => 0, 'msg' => null ];
 
     // initialize error handler / define configs for error handling
-    public static function initErrorHandler(array $error_types=[], string $env='production') {
+    public static function initErrorHandler(string $env='production', array $error_types=[]) {
       self::$env = $env;
 
       if ($error_types == []) {
