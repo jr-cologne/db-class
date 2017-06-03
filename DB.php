@@ -161,13 +161,17 @@
         $statement = $pdo->prepare($sql);
 
         $execution = $statement->execute($values);
+
+        $affected_rows = $statement->rowCount();
       } catch (PDOException $e) {
         $this->error = [ 'code' => 5, 'msg' => $error_types[5], 'pdo_exception' => $e ];
         return $this->getError();
       }
 
-      if ($execution) {
+      if ($execution && $affected_rows > 0) {
         return true;
+      } else if ($execution && $affected_rows == 0) {
+        return 0;
       } else {
         return false;
       }
