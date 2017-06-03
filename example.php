@@ -25,7 +25,7 @@
   echo 'You are successfully connected to the database!<br><br>';
 
   for ($i=1; $i <= 10; $i++) {
-    $inserted[] = $db->insert("INSERT INTO users (id, username, password) VALUES (:id, :username, :password)", [ 'id' => $i, 'username' => 'test' . $i, 'password' => 'hello' . $i ]);
+    $inserted[] = $db->insert("INSERT INTO `users` (id, username, password) VALUES (:id, :username, :password)", [ 'id' => $i, 'username' => 'test' . $i, 'password' => 'hello' . $i ]);
   }
 
   $data_inserted = 0;
@@ -42,7 +42,7 @@
     echo 'Some errors are occured when trying to insert data to the database.<br><br>';
   }
 
-  $data = $db->select("SELECT * FROM users");
+  $data = $db->select("SELECT * FROM `users`");
 
   if (!empty($data)) {
     echo 'Your data:<br><br>';
@@ -51,7 +51,7 @@
     echo 'An error is occured when trying to get your data from the database or there is no data.<br><br>';
   }
 
-  $deleted = $db->delete("DELETE FROM users");
+  $deleted = $db->delete("DELETE FROM `users`");
 
   if ($deleted === true) {
     echo 'Your data has been successfully deleted from the database.<br><br>';
