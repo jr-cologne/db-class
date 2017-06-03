@@ -232,6 +232,15 @@ You can update data in your database by the method `update()`, which has this fo
 update(string $sql, array $values)
 ```
 
+The method has the following return values:
+
+`true`: 	Everything has been updated successfully
+
+`0`:		The query has been executed successfully, but no rows have been affected by it.
+
+`false`:	The query is completely failed.
+
+
 That leads to the following arguments:
 
 #### SQL Query (`$sql`)
