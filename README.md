@@ -4,17 +4,18 @@ This project is a simple database class with php and pdo.
 ## Table of Contents
 1. [Requirements](#requirements)
 2. [Installation](#installation)
+	1. [Using Composer (recommended)](#using-composer-recommended)
+	2. [Manual Installation](#manual-installation)
 3. [Basic Usage](#basic-usage)
-	1. [Require Database Class](#require-database-class)
-	2. [Instantiate Class / Connect to Database (`__construct()`)](#instantiate-class--connect-to-database-__construct)
-	3. [Check Connection to Database (`connected()`)](#check-connection-to-database-connected)
-	4. [Select/Get Data from Database (`select()`)](#selectget-data-from-database-select)
-	5. [Insert Data into Database (`insert()`)](#insert-data-into-database-insert)
-	6. [Delete Data/Rows from Database (`delete()`)](#delete-datarows-from-database-delete)
-	7. [Update Data in Database (`update()`)](#update-data-in-database-update)
-	8. [Configure Error Handling (`initErrorHandler()`)](#configure-error-handling-initerrorhandler)
-	9. [Check for Errors (`error()`)](#check-for-errors-error)
-	10. [Get Errors (`getError()`)](#get-errors-geterror)
+	1. [Instantiate Class / Connect to Database (`__construct()`)](#instantiate-class--connect-to-database-__construct)
+	2. [Check Connection to Database (`connected()`)](#check-connection-to-database-connected)
+	3. [Select/Get Data from Database (`select()`)](#selectget-data-from-database-select)
+	4. [Insert Data into Database (`insert()`)](#insert-data-into-database-insert)
+	5. [Delete Data/Rows from Database (`delete()`)](#delete-datarows-from-database-delete)
+	6. [Update Data in Database (`update()`)](#update-data-in-database-update)
+	7. [Configure Error Handling (`initErrorHandler()`)](#configure-error-handling-initerrorhandler)
+	8. [Check for Errors (`error()`)](#check-for-errors-error)
+	9. [Get Errors (`getError()`)](#get-errors-geterror)
 4. [Further Examples / Stuff for Testing](#further-examples--stuff-for-testing)
 5. [Contributing](#contributing)
 6. [License](#license)
@@ -24,8 +25,22 @@ This project is a simple database class with php and pdo.
 - Database, which supports PDO (e.g. MySQL)
 
 ## Installation
-If you want to use the database class for your own project, you can simply follow these instructions:
+If you want to use the database class for your own project, you have two options to install it:
 
+### Using Composer (recommended)
+Once you have installed [Composer](https://getcomposer.org/), execute this command:
+
+```
+composer require jr-cologne/db-class
+```
+
+Then you just have to include the autoloader:
+
+```php
+require_once('vendor/autoload.php');
+```
+
+### Manual Installation
 1. Download the ZIP file of this project
 2. Unzip it and save the file `DB.php` to your own project directory.
 3. Include the database class into your project like that:
@@ -37,12 +52,7 @@ require_once('path/to/db-class/DB.php');
 Now you should be ready to start!
 
 ## Basic Usage
-If you have successfully "installed" everything, you can use the class like that:
-
-### Require Database Class
-```php
-require_once('your_path/DB.php');
-```
+If you have successfully installed everything, use this small guide to learn about using the database class.
 
 ### Instantiate Class / Connect to Database (`__construct()`)
 To be able to use the class and connect to the database, you have to instantiate it.
