@@ -1,4 +1,6 @@
 <?php
+  namespace JRCologne\Utils;
+
   class DB {  
     public $pdo = null;
     protected static $env = 'production';

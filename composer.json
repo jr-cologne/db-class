@@ -1,7 +1,6 @@
 {
   "name": "jr-cologne/db-class",
   "type": "library",
-  "version": "1.0.3",
   "description": "A simple database class with php and pdo.",
   "keywords": [
     "database",
@@ -10,7 +9,13 @@
     "pdo"
   ],
   "require": {
-    "php": "^7.0"
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "classmap": [ "/" ],
+    "psr-4": {
+      "JRCologne\\Utils\\": "\\"
+    }
   },
   "homepage": "https://github.com/jr-cologne/db-class",
   "time": "2017-07-03",
@@ -25,7 +30,7 @@
   ],
   "support": {
     "issues": "https://github.com/jr-cologne/db-class/issues",
-    "source": "https://github.com/jr-cologne/db-class/tree/v1.0.3",
+    "source": "https://github.com/jr-cologne/db-class/tree/v1.0.4",
     "docs": "https://github.com/jr-cologne/db-class/blob/README.md"
   }
 }
