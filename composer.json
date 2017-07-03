@@ -1,6 +1,7 @@
 {
   "name": "jr-cologne/db-class",
   "type": "library",
+  "version": "1.0.4",
   "description": "A simple database class with php and pdo.",
   "keywords": [
     "database",
