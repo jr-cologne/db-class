@@ -23,7 +23,7 @@ This project is a simple database class with php and pdo.
 - [PHP](http://php.net) (version 7.0 or higher)
 - Database, which supports PDO (e.g. MySQL)
 
-## Installation/Setup
+## Installation
 If you want to use the database class for your own project, you can simply follow these instructions:
 
 1. Download the ZIP file of this project
