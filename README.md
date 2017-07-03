@@ -384,8 +384,8 @@ echo $db->getError()['msg'];
 ## Further Examples / Stuff for Testing
 You want to see further examples for using the database class or you just want to play around with it a little bit?
 
-- You can find a further examples in the file [`example.php`](https://github.com/jr-cologne/db-class/blob/master/example.php).
-- To play around with the database class, you can use the database provided in the file [`db-class-example.sql`](https://github.com/jr-cologne/db-class/blob/master/db-class-example.sql). Just import that in your database client and you are ready to start!
+- You can find a further examples in the file [`example.php`](https://github.com/jr-cologne/db-class/blob/master/example/example.php).
+- To play around with the database class, you can use the database provided in the file [`db-class-example.sql`](https://github.com/jr-cologne/db-class/blob/master/example/db-class-example.sql). Just import that in your database client and you are ready to start!
 
 ## Contributing
 Feel free to contribute to this project! It would be awesome for me if somebody contributes to it.
