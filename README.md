@@ -2,8 +2,9 @@
 This project is a simple database class with php and pdo.
 
 ## Table of Contents
-1. [Installation/Setup](#installationsetup)
-2. [Basic Usage](#basic-usage)
+1. [Requirements](#requirements)
+2. [Installation](#installation)
+3. [Basic Usage](#basic-usage)
 	1. [Require Database Class](#require-database-class)
 	2. [Instantiate Class / Connect to Database (`__construct()`)](#instantiate-class--connect-to-database-__construct)
 	3. [Check Connection to Database (`connected()`)](#check-connection-to-database-connected)
@@ -14,17 +15,26 @@ This project is a simple database class with php and pdo.
 	8. [Configure Error Handling (`initErrorHandler()`)](#configure-error-handling-initerrorhandler)
 	9. [Check for Errors (`error()`)](#check-for-errors-error)
 	10. [Get Errors (`getError()`)](#get-errors-geterror)
-3. [Further Examples / Stuff for Testing](#further-examples--stuff-for-testing)
-4. [Contributing](#further-examples--stuff-for-testing)
-5. [Versioning](#versioning)
+4. [Further Examples / Stuff for Testing](#further-examples--stuff-for-testing)
+5. [Contributing](#contributing)
 6. [License](#license)
+
+## Requirements
+- [PHP](http://php.net) (version 7.0 or higher)
+- Database, which supports PDO (e.g. MySQL)
 
 ## Installation/Setup
 If you want to use the database class for your own project, you can simply follow these instructions:
 
 1. Download the ZIP file of this project
 2. Unzip it and save the file `DB.php` to your own project directory.
-3. If all requirements, like PHP, PDO and a database that fits to that setup, are fulfilled, you should now be ready to start!
+3. Include the database class into your project like that:
+
+```php
+require_once('path/to/db-class/DB.php');
+```
+
+Now you should be ready to start!
 
 ## Basic Usage
 If you have successfully "installed" everything, you can use the class like that:
