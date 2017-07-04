@@ -7,15 +7,16 @@ This project is a simple database class with php and pdo.
 	1. [Using Composer (recommended)](#using-composer-recommended)
 	2. [Manual Installation](#manual-installation)
 3. [Basic Usage](#basic-usage)
-	1. [Instantiate Class / Connect to Database (`__construct()`)](#instantiate-class--connect-to-database-__construct)
-	2. [Check Connection to Database (`connected()`)](#check-connection-to-database-connected)
-	3. [Select/Get Data from Database (`select()`)](#selectget-data-from-database-select)
-	4. [Insert Data into Database (`insert()`)](#insert-data-into-database-insert)
-	5. [Delete Data/Rows from Database (`delete()`)](#delete-datarows-from-database-delete)
-	6. [Update Data in Database (`update()`)](#update-data-in-database-update)
-	7. [Configure Error Handling (`initErrorHandler()`)](#configure-error-handling-initerrorhandler)
-	8. [Check for Errors (`error()`)](#check-for-errors-error)
-	9. [Get Errors (`getError()`)](#get-errors-geterror)
+	1. [Namespace](#namespace)
+	2. [Instantiate Class / Connect to Database (`__construct()`)](#instantiate-class--connect-to-database-__construct)
+	3. [Check Connection to Database (`connected()`)](#check-connection-to-database-connected)
+	4. [Select/Get Data from Database (`select()`)](#selectget-data-from-database-select)
+	5. [Insert Data into Database (`insert()`)](#insert-data-into-database-insert)
+	6. [Delete Data/Rows from Database (`delete()`)](#delete-datarows-from-database-delete)
+	7. [Update Data in Database (`update()`)](#update-data-in-database-update)
+	8. [Configure Error Handling (`initErrorHandler()`)](#configure-error-handling-initerrorhandler)
+	9. [Check for Errors (`error()`)](#check-for-errors-error)
+	10. [Get Errors (`getError()`)](#get-errors-geterror)
 4. [Further Examples / Stuff for Testing](#further-examples--stuff-for-testing)
 5. [Contributing](#contributing)
 6. [License](#license)
@@ -53,6 +54,14 @@ Now you should be ready to start!
 
 ## Basic Usage
 If you have successfully installed everything, use this small guide to learn about using the database class.
+
+### Namespace
+
+Before instantiating the class, always make sure to use the right namespace:
+
+```php
+use JRCologne\Utils\DB;
+```
 
 ### Instantiate Class / Connect to Database (`__construct()`)
 To be able to use the class and connect to the database, you have to instantiate it.
