@@ -1,5 +1,6 @@
 <?php
   namespace JRCologne\Utils;
+  use \PDO;
 
   class DB {  
     public $pdo = null;

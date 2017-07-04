@@ -1,5 +1,7 @@
 <?php
-  require_once('DB.php');
+  require_once('../DB.php');
+
+  use JRCologne\Utils\DB;
 
   DB::initErrorHandler(
     'production',
