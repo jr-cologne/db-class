@@ -1,22 +1,22 @@
 # db-class
-This project is a simple database class with php and pdo.
+This project is a simple database class with PHP and PDO.
 
 ## Table of Contents
 1. [Requirements](#requirements)
 2. [Installation](#installation)
-	1. [Using Composer (recommended)](#using-composer-recommended)
-	2. [Manual Installation](#manual-installation)
+    1. [Using Composer (recommended)](#using-composer-recommended)
+    2. [Manual Installation](#manual-installation)
 3. [Basic Usage](#basic-usage)
-	1. [Namespace](#namespace)
-	2. [Instantiate Class / Connect to Database (`__construct()`)](#instantiate-class--connect-to-database-__construct)
-	3. [Check Connection to Database (`connected()`)](#check-connection-to-database-connected)
-	4. [Select/Get Data from Database (`select()`)](#selectget-data-from-database-select)
-	5. [Insert Data into Database (`insert()`)](#insert-data-into-database-insert)
-	6. [Delete Data/Rows from Database (`delete()`)](#delete-datarows-from-database-delete)
-	7. [Update Data in Database (`update()`)](#update-data-in-database-update)
-	8. [Configure Error Handling (`initErrorHandler()`)](#configure-error-handling-initerrorhandler)
-	9. [Check for Errors (`error()`)](#check-for-errors-error)
-	10. [Get Errors (`getError()`)](#get-errors-geterror)
+    1. [Namespace](#namespace)
+    2. [Instantiate Class / Connect to Database (`__construct()`)](#instantiate-class--connect-to-database-__construct)
+    3. [Check Connection to Database (`connected()`)](#check-connection-to-database-connected)
+    4. [Select/Get Data from Database (`select()`)](#selectget-data-from-database-select)
+    5. [Insert Data into Database (`insert()`)](#insert-data-into-database-insert)
+    6. [Delete Data/Rows from Database (`delete()`)](#delete-datarows-from-database-delete)
+    7. [Update Data in Database (`update()`)](#update-data-in-database-update)
+    8. [Configure Error Handling (`initErrorHandler()`)](#configure-error-handling-initerrorhandler)
+    9. [Check for Errors (`error()`)](#check-for-errors-error)
+    10. [Get Errors (`getError()`)](#get-errors-geterror)
 4. [Further Examples / Stuff for Testing](#further-examples--stuff-for-testing)
 5. [Contributing](#contributing)
 6. [License](#license)
@@ -134,7 +134,7 @@ select(string $sql, array $where=null, int $fetch_mode=PDO::FETCH_ASSOC)
 The following arguments exist:
 
 #### SQL Query (`$sql`)
-The sql to perform the query to the database. (required)
+The SQL to perform the query to the database. (required)
 
 For example:
 
@@ -152,7 +152,7 @@ Example:
 [ 'username' => 'Jack' ]
 ```
 
-Please note that you have to provide an associative array with keys that match to the placeholders in the sql query, unless you are not using the named placeholders in the query. In case you are just using the question marks as the placeholder, you can get rid of the keys.
+Please note that you have to provide an associative array with keys that match to the placeholders in the SQL query unless you are not using the named placeholders in the query. In case you are just using the question marks as the placeholder, you can get rid of the keys.
 
 #### PDO Fetch Mode (`$fetch_mode`)
 The [pdo fetch mode](http://php.net/manual/en/pdostatement.fetch.php). Defines in which format the data is returned from the database. (optional)
@@ -181,7 +181,7 @@ insert(string $sql, array $values)
 The following arguments are required when calling the method:
 
 #### SQL Query (`$sql`)
-The sql query to insert the data into your database. (required)
+The SQL query to insert the data into your database. (required)
 
 For example that could be:
 
@@ -201,7 +201,7 @@ Example:
 ]
 ```
 
-Please note that you have to provide an associative array with keys that match to the placeholders in the sql query, unless you are not using the named placeholders in the query. In case you are just using the question marks as the placeholder, you can get rid of the keys.
+Please note that you have to provide an associative array with keys that match to the placeholders in the SQL query unless you are not using the named placeholders in the query. In case you are just using the question marks as the placeholder, you can get rid of the keys.
 
 Finally, here is an example for using the `insert()` method to insert data into your database:
 
@@ -227,7 +227,7 @@ delete(string $sql, array $where=null)
 These are the existing arguments:
 
 #### SQL Query (`$sql`)
-The sql query to delete the data from the database. (required)
+The SQL query to delete the data from the database. (required)
 
 For example:
 
@@ -246,7 +246,7 @@ Example:
 [ 'id' => 3 ]
 ```
 
-Please note that you have to provide an associative array with keys that match to the placeholders in the sql query, unless you are not using the named placeholders in the query. In case you are just using the question marks as the placeholder, you can get rid of the keys.
+Please note that you have to provide an associative array with keys that match to the placeholders in the SQL query unless you are not using the named placeholders in the query. In case you are just using the question marks as the placeholder, you can get rid of the keys.
 
 Simple example for deleting data with this method:
 
@@ -263,17 +263,17 @@ update(string $sql, array $values)
 
 The method has the following return values:
 
-`true`: 	Everything has been updated successfully
+`true`:     Everything has been updated successfully
 
-`0`:		The query has been executed successfully, but no rows have been affected by it.
+`0`:        The query has been executed successfully, but no rows have been affected by it.
 
-`false`:	The query is completely failed.
+`false`:    The query is completely failed.
 
 
 That leads to the following arguments:
 
 #### SQL Query (`$sql`)
-The sql query to update the data in your database. (required)
+The SQL query to update the data in your database. (required)
 
 Example:
 
@@ -293,7 +293,7 @@ For example that could be the following:
 ]
 ```
 
-Please note that you have to provide an associative array with keys that match to the placeholders in the sql query, unless you are not using the named placeholders in the query. In case you are just using the question marks as the placeholder, you can get rid of the keys.
+Please note that you have to provide an associative array with keys that match to the placeholders in the SQL query unless you are not using the named placeholders in the query. In case you are just using the question marks as the placeholder, you can get rid of the keys.
 
 Example for using everything this method has to offer together:
 
@@ -311,7 +311,7 @@ $updated = $db->update(
 
 If you want to, you can create your own error handling setup before you instantiate the class.
 
-Important to know is that every method returns the array `$error` on failure with some basic information about the error that is occured.
+Important to know is that every method returns the array `$error` on failure with some basic information about the error that is occurred.
 
 The following options exist:
 
@@ -339,7 +339,7 @@ Default:
 
 **Attention**: Do not change the error codes/keys as long as you don't modify the class according to that! When you change the error code of an error and then just use the database class as normal, it will not work as expected!
 
-Besides from that you can freely change the error messages to your own liking.
+Besides from that, you can freely change the error messages to your own liking.
 
 To change the config of the error handling, you must call the static method `initErrorHandler(string $env='production', array $error_types=[])`, which will basically set your specified configs, **before** you are instantiating the class.
 
@@ -361,7 +361,7 @@ DB::initErrorHandler(
 Always make sure to pass in the whole array, e.g. not just error 2 and 5, because then only error 2 and 5 will exist.
 
 ### Check for Errors (`error()`)
-In case you want to know if an error occured, you can simply call the method `error()` and it will return you `true` or `false` based on the fact whether there is an error or not.
+In case you want to know if an error occurred, you can simply call the method `error()` and it will return you `true` or `false` based on the fact whether there is an error or not.
 
 Example for using that:
 
@@ -393,15 +393,15 @@ echo $db->getError()['msg'];
 ## Further Examples / Stuff for Testing
 You want to see further examples for using the database class or you just want to play around with it a little bit?
 
-- You can find a further examples in the file [`example.php`](https://github.com/jr-cologne/db-class/blob/master/example/example.php).
+- You can find further examples in the file [`example.php`](https://github.com/jr-cologne/db-class/blob/master/example/example.php).
 - To play around with the database class, you can use the database provided in the file [`db-class-example.sql`](https://github.com/jr-cologne/db-class/blob/master/example/db-class-example.sql). Just import that in your database client and you are ready to start!
 
 ## Contributing
 Feel free to contribute to this project! It would be awesome for me if somebody contributes to it.
 
-So don't be shy and start coding! If you want to make sure that I like your idea, you can contact me by a Issue.
+So don't be shy and start coding! If you want to make sure that I like your idea, you can contact me by an Issue.
 
-But if you decide to contribute to this project, keep in mind that finally it is my choice to merge your Pull Request or not, so also be prepared for a negative decision.
+But if you decide to contribute to this project, keep in mind that finally, it is my choice to merge your Pull Request or not, so also be prepared for a negative decision.
 
 ## License
 This project is licensed under the [MIT License](https://github.com/jr-cologne/db-class/blob/master/LICENSE).
