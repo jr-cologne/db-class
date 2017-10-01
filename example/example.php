@@ -1,63 +1,81 @@
 <?php
-  require_once('../DB.php');
 
-  use JRCologne\Utils\DB;
+require_once('../vendor/autoload.php');
 
-  DB::initErrorHandler(
-    'production',
-    [
-      0 => 'success',
-      1 => 'Sorry, the connection to the database is failed!',
-      2 => 'Sorry, we are currently not able to receive data from the database!',
-      3 => 'Sorry, we are currently not able to insert your data to the database!',
-      4 => 'Sorry, we are currently not able to delete your data from the database!',
-      5 => 'Sorry, we are currently not able to update your data in the database!',
-    ]
-  );
+use JRCologne\Utils\Database\DB;
+use JRCologne\Utils\Database\QueryBuilder;
 
-  $db = new DB('db-class-example', 'root', '');
+$db = new DB(new QueryBuilder);
 
-  if (!$db->connected()) {
-    if ($db->error()) {
-      echo $db->getError()['msg'];
-    }
-    die();
+if (!$db->connect('mysql:host=localhost;dbname=db-class-example;charset=utf8', 'root', 'root')) {
+  echo 'Connection to database failed!<br>';
+} else {
+  echo 'Successfully connected to database!<br>';
+
+  for ($i = 0; $i < 3; $i++) {
+    $data[] = [
+      'username' => 'test' . $i,
+      'password' => 'test' . $i,
+    ];
   }
 
-  echo 'You are successfully connected to the database!<br><br>';
+  $inserted = $db->table('users')->multi_insert('username, password', $data);
 
-  for ($i=1; $i <= 10; $i++) {
-    $inserted[] = $db->insert("INSERT INTO `users` (id, username, password) VALUES (:id, :username, :password)", [ 'id' => $i, 'username' => 'test' . $i, 'password' => 'hello' . $i ]);
-  }
-
-  $data_inserted = 0;
-
-  foreach ($inserted as $value) {
-    if ($value === true) {
-      $data_inserted++;
-    }
-  }
-
-  if ($data_inserted == 10) {
-    echo 'Everything has been successfully inserted to the database.<br><br>';
+  if ($inserted) {
+    echo 'Data has successfully been inserted!<br>';
+  } else if ($inserted === 0) {
+    echo 'Ops, some data could not be inserted!<br>';
   } else {
-    echo 'Some errors are occured when trying to insert data to the database.<br><br>';
+    echo 'Inserting of data is failed!<br>';
   }
 
-  $data = $db->select("SELECT * FROM `users`");
+  $data = $db->table('users')->select('*')->retrieve();
+  
+  if ($data === false) {
+    echo 'Ops, something went wrong retrieving the data from the database!<br>';
+  } else if (empty($data)) {
+    echo 'It looks like there is no data in the database!<br>';
+  } else {
+    echo 'Successfully retrieved the data from the database!<br>';
 
-  if (!empty($data)) {
-    echo 'Your data:<br><br>';
     echo '<pre>', print_r($data, true), '</pre>';
-  } else {
-    echo 'An error is occured when trying to get your data from the database or there is no data.<br><br>';
   }
 
-  $deleted = $db->delete("DELETE FROM `users`");
-
-  if ($deleted === true) {
-    echo 'Your data has been successfully deleted from the database.<br><br>';
+  if (
+    $db->table('users')->update(
+      [
+        'username' => 'test123',
+        'password' => 'test123',
+      ],
+      [
+        'username' => 'test1',
+        'password' => 'test1',
+      ]
+    )
+  ) {
+    echo 'Data has successfully been updated!<br>';
   } else {
-    echo 'Some errors are occured when trying to delete the data from the database.<br><br>';
+    echo 'Updating data failed!<br>';
   }
-?>
+
+  $data = $db->table('users')->select('*', [
+    'username' => 'test123',
+    'password' => 'test123',
+  ])->retrieve('first');
+
+  if ($data === false) {
+    echo 'Ops, something went wrong retrieving the data from the database!<br>';
+  } else if (empty($data)) {
+    echo 'It looks like there is no data in the database!<br>';
+  } else {
+    echo 'Successfully retrieved the data from the database!<br>';
+
+    echo '<pre>', print_r($data, true), '</pre>';
+  }
+
+  if ($db->table('users')->delete()) {
+    echo 'Data has successfully been deleted!<br>';
+  } else {
+    echo 'Deleting data failed!<br>';
+  }
+}
