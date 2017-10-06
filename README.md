@@ -101,17 +101,24 @@ $results = $stmt->fetchAll();
 ```
 
 ## Further Examples / Stuff for Testing
+
 You want to see further examples for using the database class or you just want to play around with it a little bit?
 
 - You can find further examples in the file [`example/example.php`](https://github.com/jr-cologne/db-class/blob/master/example/example.php).
 - To play around with the database class, you can use the database provided in the file [`example/db-class-example.sql`](https://github.com/jr-cologne/db-class/blob/master/example/db-class-example.sql). Just import it in your database client and you are ready to start!
 
 ## Contributing
+
 Feel free to contribute to this project! It would be awesome for me if somebody contributes to it.
 
 So don't be shy and start coding! If you want to make sure that I like your idea, you can contact me by an Issue.
 
 But if you decide to contribute to this project, keep in mind that finally, it is my choice to merge your Pull Request or not, so also be prepared for a negative decision.
 
+## Versioning
+
+This project is using the rules of semantic versioning (since version 2). For more information, visit [semver.org](http://semver.org/).
+
 ## License
+
 This project is licensed under the [MIT License](https://github.com/jr-cologne/db-class/blob/master/LICENSE).
