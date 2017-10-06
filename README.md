@@ -1,34 +1,20 @@
 # db-class
-This project is a simple database class with PHP and PDO.
 
-## Table of Contents
-1. [Requirements](#requirements)
-2. [Installation](#installation)
-    1. [Using Composer (recommended)](#using-composer-recommended)
-    2. [Manual Installation](#manual-installation)
-3. [Basic Usage](#basic-usage)
-    1. [Namespace](#namespace)
-    2. [Instantiate Class / Connect to Database (`__construct()`)](#instantiate-class--connect-to-database-__construct)
-    3. [Check Connection to Database (`connected()`)](#check-connection-to-database-connected)
-    4. [Select/Get Data from Database (`select()`)](#selectget-data-from-database-select)
-    5. [Insert Data into Database (`insert()`)](#insert-data-into-database-insert)
-    6. [Delete Data/Rows from Database (`delete()`)](#delete-datarows-from-database-delete)
-    7. [Update Data in Database (`update()`)](#update-data-in-database-update)
-    8. [Configure Error Handling (`initErrorHandler()`)](#configure-error-handling-initerrorhandler)
-    9. [Check for Errors (`error()`)](#check-for-errors-error)
-    10. [Get Errors (`getError()`)](#get-errors-geterror)
-4. [Further Examples / Stuff for Testing](#further-examples--stuff-for-testing)
-5. [Contributing](#contributing)
-6. [License](#license)
+This project is a simple database class with PHP, PDO and a query builder.
+
+The class extends PDO for more control and in order to keep all features of PDO.
 
 ## Requirements
+
 - [PHP](http://php.net) (version 7.0 or higher)
 - Database, which supports PDO (e.g. MySQL)
 
 ## Installation
+
 If you want to use the database class for your own project, you have two options to install it:
 
 ### Using Composer (recommended)
+
 Once you have installed [Composer](https://getcomposer.org/), execute this command:
 
 ```
@@ -42,359 +28,83 @@ require_once('vendor/autoload.php');
 ```
 
 ### Manual Installation
+
 1. Download the ZIP file of this project
-2. Unzip it and save the file `DB.php` to your own project directory.
-3. Include the database class into your project like that:
+2. Unzip it and move everything to your own project directory.
+3. Include all files of the database class into your project like that:
 
 ```php
-require_once('path/to/db-class/DB.php');
+require_once('path/to/db-class/src/DB.php');
+require_once('path/to/db-class/src/QueryBuilder.php');
+require_once('path/to/db-class/src/Exceptions/UnsupportedKeywordException.php');
 ```
 
 Now you should be ready to start!
 
 ## Basic Usage
-If you have successfully installed everything, use this small guide to learn about using the database class.
 
 ### Namespace
 
-Before instantiating the class, always make sure to use the right namespace:
+Before instantiating the class, always make sure to use the right namespaces:
 
 ```php
-use JRCologne\Utils\DB;
+use JRCologne\Utils\Database\DB;
+use JRCologne\Utils\Database\QueryBuilder;
 ```
 
-### Instantiate Class / Connect to Database (`__construct()`)
-To be able to use the class and connect to the database, you have to instantiate it.
+### Instantiate Class (`DB::__construct()`)
 
-To do that, follow that format:
+To be able to use the class, you have to instantiate it.
+
+Just do this:
 
 ```php
-new DB(
-  string $dbname,
-  string $user,
-  string $password,
-  string $db_type='mysql',
-  string $host='localhost',
-  int $pdo_err_mode=PDO::ERRMODE_EXCEPTION
-)
+$db = new DB(new QueryBuilder);
 ```
 
-It's providing these options:
+### Where can I find the documentation?
 
-#### Database Name (`$dbname`)
-The name of your database you want to connect with. (required)
+There is currently no real documentation. But don't worry, it's coming soon!
 
-#### Database User (`$user`)
-The user of the database that should interact with it. (required)
+Until then, you can simply take a look at the code and you will probably understand most things as I commented every property and method of the database class.
 
-#### Password of the Database User (`$password`)
-The password of the database user you are using to interact with the database. (required)
+### Using PDO's functionality
 
-#### Database Type (`$db_type`)
-The type of the database you are using. (optional)
+Since the database class is extending PDO, you can use the whole functionality of PDO with this class as well.
 
-Default: `mysql`
+Just connect to the database using the method `DB::connect()` and after that simply use everything as normal.
 
-#### Host (`$host`)
-The host of your database. (optional)
-
-Default: `localhost`
-
-#### PDO Error Mode (`$pdo_err_mode`)
-The [error mode of pdo](http://php.net/manual/en/pdo.error-handling.php) you want to use. (optional)
-
-Default: `PDO::ERRMODE_EXCEPTION`
-
-Simple example for instantiating the class:
-```php
-$db = new DB('db-class-example', 'root', '');
-```
-
-### Check Connection to Database (`connected()`)
-The method `connected()` gives you the ability to check if the connection to the database was established successfully.
-
-The method requires no arguments at all, so you can just call it and then it will give you a return value of `true` or `false` based on the fact if the connection was established or not.
-
-Example:
-```php
-if ($db->connected()) {
-  echo 'Successfully connected!';
-} else {
-  echo 'Connection failed';
-}
-```
-
-### Select/Get Data from Database (`select()`)
-In order to get data from the database you can use the method `select()` in the following format:
+An quick example:
 
 ```php
-select(string $sql, array $where=null, int $fetch_mode=PDO::FETCH_ASSOC)
-```
+// include all files
+require_once('vendor/autoload.php');
 
-The following arguments exist:
+// use right namespaces
+use JRCologne\Utils\Database\DB;
+use JRCologne\Utils\Database\QueryBuilder;
 
-#### SQL Query (`$sql`)
-The SQL to perform the query to the database. (required)
+// instantiate database class with query builder
+$db = new DB(new QueryBuilder);
 
-For example:
+// connect to database
+$db->connect('mysql:host=localhost;dbname=db-class-example;charset=utf8', 'root', 'root');
 
-```sql
-SELECT * FROM `users` WHERE `username` = :username
-```
+// prepare query like with PDO class
+$stmt = $db->prepare("SELECT * FROM `users`");
 
-#### Values for Where Clause (`$where`)
-An array of the values to use in the where clause. (optional)
+// execute query
+$stmt->execute();
 
-Default: `null`
-
-Example:
-```php
-[ 'username' => 'Jack' ]
-```
-
-Please note that you have to provide an associative array with keys that match to the placeholders in the SQL query unless you are not using the named placeholders in the query. In case you are just using the question marks as the placeholder, you can get rid of the keys.
-
-#### PDO Fetch Mode (`$fetch_mode`)
-The [pdo fetch mode](http://php.net/manual/en/pdostatement.fetch.php). Defines in which format the data is returned from the database. (optional)
-
-Default: `PDO::FETCH_ASSOC`
-
-Example:
-
-```php
-PDO::FETCH_NUM
-```
-
-An simple example for using everything together:
-
-```php
-$data = $db->select("SELECT * FROM `users` WHERE `username` = :username", [ 'username' => 'Jack' ], PDO::FETCH_NUM);
-```
-
-### Insert Data into Database (`insert()`)
-To insert any data into your database, you can use the `insert()` method with the following format:
-
-```php
-insert(string $sql, array $values)
-```
-
-The following arguments are required when calling the method:
-
-#### SQL Query (`$sql`)
-The SQL query to insert the data into your database. (required)
-
-For example that could be:
-
-```sql
-INSERT INTO `users` (`username`, `password`) VALUES (:username, :password)
-```
-
-#### Values to Insert (`$values`)
-An array of the values to be inserted into the database. (required)
-
-Example:
-
-```php
-[
-  'username' => 'test',
-  'password' => 'hello'
-]
-```
-
-Please note that you have to provide an associative array with keys that match to the placeholders in the SQL query unless you are not using the named placeholders in the query. In case you are just using the question marks as the placeholder, you can get rid of the keys.
-
-Finally, here is an example for using the `insert()` method to insert data into your database:
-
-```php
-$inserted = $db->insert(
-  "INSERT INTO `users` (`username`, `password`) VALUES (:username, :password)",
-  [
-    'username' => 'test',
-    'password' => 'hello'
-  ]
-);
-```
-
-### Delete Data/Rows from Database (`delete()`)
-The method `delete()` provides the ability to delete data from the database.
-
-You have to follow this format:
-
-```php
-delete(string $sql, array $where=null)
-```
-
-These are the existing arguments:
-
-#### SQL Query (`$sql`)
-The SQL query to delete the data from the database. (required)
-
-For example:
-
-```sql
-DELETE FROM `users` WHERE `id` = :id
-```
-
-#### Values for Where Clause (`$where`)
-An array of the values to use in the where clause. (optional)
-
-Default: `null`
-
-Example:
-
-```php
-[ 'id' => 3 ]
-```
-
-Please note that you have to provide an associative array with keys that match to the placeholders in the SQL query unless you are not using the named placeholders in the query. In case you are just using the question marks as the placeholder, you can get rid of the keys.
-
-Simple example for deleting data with this method:
-
-```php
-$deleted = $db->delete("DELETE FROM `users` WHERE `id` = :id", [ 'id' => 3 ]);
-```
-
-### Update Data in Database (`update()`)
-You can update data in your database by the method `update()`, which has this format:
-
-```php
-update(string $sql, array $values)
-```
-
-The method has the following return values:
-
-`true`:     Everything has been updated successfully
-
-`0`:        The query has been executed successfully, but no rows have been affected by it.
-
-`false`:    The query is completely failed.
-
-
-That leads to the following arguments:
-
-#### SQL Query (`$sql`)
-The SQL query to update the data in your database. (required)
-
-Example:
-
-```sql
-UPDATE `users` SET `username` = :username WHERE `id` = :id
-```
-
-#### New Values and Values for Where Clause (`values`)
-An array of the new values to which it should be updated and the values for the where clause. (required)
-
-For example that could be the following:
-
-```php
-[
-  'username' => 'test',
-  'id' => 3
-]
-```
-
-Please note that you have to provide an associative array with keys that match to the placeholders in the SQL query unless you are not using the named placeholders in the query. In case you are just using the question marks as the placeholder, you can get rid of the keys.
-
-Example for using everything this method has to offer together:
-
-```php
-$updated = $db->update(
-  "UPDATE `users` SET `username` = :username WHERE `id` = :id",
-  [
-    'username' => 'test',
-    'id' => 3
-  ]
-);
-```
-
-### Configure Error Handling (`initErrorHandler()`)
-
-If you want to, you can create your own error handling setup before you instantiate the class.
-
-Important to know is that every method returns the array `$error` on failure with some basic information about the error that is occurred.
-
-The following options exist:
-
-#### Environment (`$env`)
-`production` or `development`/`dev`
-
-Production: return simple error code and the related error message (default)
-
-Development: return simple error code, the related error message and the [`PDOException Object`](http://php.net/manual/en/class.pdoexception.php)
-
-#### Error Types / Error Messages (`$error_types`)
-An array of the error messages with the error code as the key.
-
-Default:
-```php
-[
-      0 => 'success',
-      1 => 'Connection to database failed',
-      2 => 'Selecting/Getting data from database failed',
-      3 => 'Inserting data into database failed',
-      4 => 'Deleting data from database failed',
-      5 => 'Updating data in database failed',
-]
-```
-
-**Attention**: Do not change the error codes/keys as long as you don't modify the class according to that! When you change the error code of an error and then just use the database class as normal, it will not work as expected!
-
-Besides from that, you can freely change the error messages to your own liking.
-
-To change the config of the error handling, you must call the static method `initErrorHandler(string $env='production', array $error_types=[])`, which will basically set your specified configs, **before** you are instantiating the class.
-
-Example:
-```php
-DB::initErrorHandler(
-    'production',
-    [
-      0 => 'success',
-      1 => 'Sorry, the connection to the database is failed!',
-      2 => 'Sorry, we are currently not able to receive data from the database!',
-      3 => 'Sorry, we are currently not able to insert your data to the database!',
-      4 => 'Sorry, we are currently not able to delete your data from the database!',
-      5 => 'Sorry, we are currently not able to update your data in the database!',
-    ]
-);
-```
-
-Always make sure to pass in the whole array, e.g. not just error 2 and 5, because then only error 2 and 5 will exist.
-
-### Check for Errors (`error()`)
-In case you want to know if an error occurred, you can simply call the method `error()` and it will return you `true` or `false` based on the fact whether there is an error or not.
-
-Example for using that:
-
-```php
-if ($db->error()) {
-  echo 'There is an error!';
-} else {
-  echo 'Everything is fine!';
-}
-```
-
-### Get Errors (`getError()`)
-You can get the array `$error`, which contains all errors, by calling this method.
-
-If there are no errors, it will just return `null`.
-
-Example for getting the whole array:
-
-```php
-$error = $db->getError();
-```
-
-Example for displaying the error message:
-
-```php
-echo $db->getError()['msg'];
+// fetch all results
+$results = $stmt->fetchAll();
 ```
 
 ## Further Examples / Stuff for Testing
 You want to see further examples for using the database class or you just want to play around with it a little bit?
 
-- You can find further examples in the file [`example.php`](https://github.com/jr-cologne/db-class/blob/master/example/example.php).
-- To play around with the database class, you can use the database provided in the file [`db-class-example.sql`](https://github.com/jr-cologne/db-class/blob/master/example/db-class-example.sql). Just import that in your database client and you are ready to start!
+- You can find further examples in the file [`example/example.php`](https://github.com/jr-cologne/db-class/blob/master/example/example.php).
+- To play around with the database class, you can use the database provided in the file [`example/db-class-example.sql`](https://github.com/jr-cologne/db-class/blob/master/example/db-class-example.sql). Just import it in your database client and you are ready to start!
 
 ## Contributing
 Feel free to contribute to this project! It would be awesome for me if somebody contributes to it.
