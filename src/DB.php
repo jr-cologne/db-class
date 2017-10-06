@@ -96,7 +96,7 @@ class DB extends PDO {
    * @param  string $dsn the data source name of the method PDO::__construct()
    * @param  string $username = null
    * @param  string $password = null
-   * @param  array $options = []
+   * @param  array $options = [] array of options that should be passed into the method PDO::__construct()
    * @return boolean true on success, false on failure
    */
   public function connect(string $dsn, string $username = null, string $password = null, array $options = []) {
