@@ -99,7 +99,7 @@ class DB extends PDO {
    * @param  array $options = []
    * @return boolean true on success, false on failure
    */
-  public function connect(string $dsn, $username = null, $password = null, $options = []) {
+  public function connect(string $dsn, string $username = null, string $password = null, array $options = []) {
     try {
       if (empty($options)) {
         parent::__construct($dsn, $username, $password, $this->default_options);
