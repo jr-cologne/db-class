@@ -24,7 +24,7 @@ composer require jr-cologne/db-class
 Then you just have to include the autoloader:
 
 ```php
-require_once('vendor/autoload.php');
+require_once 'vendor/autoload.php';
 ```
 
 ### Manual Installation
@@ -34,9 +34,9 @@ require_once('vendor/autoload.php');
 3. Include all files of the database class into your project like that:
 
 ```php
-require_once('path/to/db-class/src/DB.php');
-require_once('path/to/db-class/src/QueryBuilder.php');
-require_once('path/to/db-class/src/Exceptions/UnsupportedKeywordException.php');
+require_once 'path/to/db-class/src/DB.php';
+require_once 'path/to/db-class/src/QueryBuilder.php';
+require_once 'path/to/db-class/src/Exceptions/UnsupportedKeywordException.php';
 ```
 
 Now you should be ready to start!
@@ -52,7 +52,7 @@ use JRCologne\Utils\Database\DB;
 use JRCologne\Utils\Database\QueryBuilder;
 ```
 
-### Instantiate Class (`DB::__construct()`)
+### Instantiating Class
 
 To be able to use the class, you have to instantiate it.
 
@@ -62,11 +62,127 @@ Just do this:
 $db = new DB(new QueryBuilder);
 ```
 
-### Where can I find the documentation?
+### Connecting to Database
 
-There is currently no real documentation. But don't worry, it's coming soon!
+You can connect to a database with the help of the method `DB::connect()`.
 
-Until then, you can simply take a look at the code and you will probably understand most things as I commented every property and method of the database class.
+An simple example:
+
+```php
+if ($db->connect('mysql:host=localhost;dbname=db-class-example;charset=utf8', 'root', 'root')) {
+  echo 'Successfully connected to database';
+} else {
+  echo 'Connection failed';
+}
+```
+
+### Retrieving Data from Database
+
+In order to retrieve data from a database, you need to walk through the following three steps:
+
+1. Choose a table with the method `DB::table()`.
+2. Select the data you want to retrieve.
+3. Retrieve the selected data.
+
+Fortunately, this is super simple with the database class:
+
+```php
+$data = $db->table('users')->select('*')->retrieve();
+
+if ($data === false) {
+  echo 'Ops, something went wrong retrieving the data from the database!<br>';
+} else if (empty($data)) {
+  echo 'It looks like there is no data in the database!<br>';
+} else {
+  echo 'Successfully retrieved the data from the database!<br>';
+
+  echo '<pre>', print_r($data, true), '</pre>';
+}
+```
+
+It will basically retrieve all records from the selected table.
+
+### Inserting Data into Database
+
+If you want to insert data into a database, you have two methods which you can use:
+
+- `DB::insert()` (to insert one row of data)
+- `DB::multi_insert()` (to insert multiple rows of data)
+
+In this case, we are just going to insert one row.
+
+The procedure is as follows:
+
+1. Choose a table with the method `DB::table()`.
+2. Insert the data with the method `DB::insert()`.
+
+Example:
+
+```php
+$inserted = $db->table('users')->insert('username, password', [
+  'username' => 'test',
+  'password' => 'password'
+]);
+
+if ($inserted) {
+  echo 'Data has successfully been inserted';
+} else if ($inserted === 0) {
+  echo 'Ops, some data could not be inserted';
+} else {
+  echo 'Inserting of data is failed';
+}
+```
+
+### Updating Data of Database
+
+In case you want to update data of a database, you can use the method `DB::update()`.
+
+The following steps are required:
+
+1. Choose a table with the method `DB::table()`.
+2. Update the data with the method `DB::update()`.
+
+Example:
+
+```php
+if (
+  $db->table('users')->update(
+    [
+      'username' => 'test123',  // new data
+      'password' => 'password123',
+    ],
+    [
+      'username' => 'test',    // where clause
+      'password' => 'password',
+    ]
+  )
+) {
+  echo 'Data has successfully been updated';
+} else {
+  echo 'Updating data failed';
+}
+```
+
+This will update the record(s) where the `username` is equal to `test` and the `password` is equal to `password` to `test123` for the `username` and `password123` for the `password`.
+
+### Deleting Data from Database
+
+In order to delete data from a database, follow these steps:
+
+1. Choose a table with the method `DB::table()`.
+2. Delete the data with the method `DB::delete()`.
+
+Here's an simple example which deletes the record(s) where the `username` is equal to `test`:
+
+```php
+if ($db->table('users')->delete([
+  'username' => 'test'  // where clause
+])) {
+  echo 'Data has successfully been deleted';
+} else {
+  echo 'Deleting data failed';
+}
+```
 
 ### Using PDO's functionality
 
