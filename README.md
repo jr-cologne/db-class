@@ -216,9 +216,17 @@ $stmt->execute();
 $results = $stmt->fetchAll();
 ```
 
+### API
+
+Looking for a complete overview of each property and method of this database class?
+
+Just head over to the [`API.md`](https://github.com/jr-cologne/db-class/blob/master/src/API.md) file where you can find everything you need.
+
+It is located in the source (`src`) folder.
+
 ## Further Examples / Stuff for Testing
 
-You want to see further examples for using the database class or you just want to play around with it a little bit?
+You want to see further examples of using the database class or you just want to play around with it a little bit?
 
 - You can find further examples in the file [`example/example.php`](https://github.com/jr-cologne/db-class/blob/master/example/example.php).
 - To play around with the database class, you can use the database provided in the file [`example/db-class-example.sql`](https://github.com/jr-cologne/db-class/blob/master/example/db-class-example.sql). Just import it in your database client and you are ready to start!
