@@ -21,7 +21,7 @@
  *
  * QueryBuilder.php
  *
- * The query builder class, which is creating all queries for this database class.
+ * The query builder class which is creating all queries for this database class.
  * 
  */
 
@@ -30,7 +30,7 @@ namespace JRCologne\Utils\Database;
 class QueryBuilder {
 
   /**
-   * The current table, which will be used for the query.
+   * The current table which will be used for the query.
    * 
    * @var string $table
    */
