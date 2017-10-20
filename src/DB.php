@@ -43,7 +43,7 @@ class DB extends PDO {
   protected $query_builder;
 
   /**
-   * The default options of this class for PDO, which are passed into PDO::__construct.
+   * The default options of this class for PDO which are passed into PDO::__construct.
    * 
    * @var array $default_options
    */
@@ -156,7 +156,7 @@ class DB extends PDO {
   }
 
   /**
-   * Retrieves an particular amount of the data selected and fetched by the method DB::select().
+   * Retrieves a particular amount of the data selected and fetched by the method DB::select().
    *
    * Keywords:
    * - 'all' retrieves the whole dataset
@@ -329,7 +329,7 @@ class DB extends PDO {
   }
 
   /**
-   * Formats the data for the where clause, which is passed into the method PDOStatement::execute().
+   * Formats the data for the where clause which is passed into the method PDOStatement::execute().
    *
    * This is done in order to prevent issues/conflicts
    * when a particular column should be updated or deleted and is also part of the where clause.
