@@ -218,7 +218,7 @@ $results = $stmt->fetchAll();
 
 ### API
 
-Looking for a complete overview of each property and method of this database class?
+Looking for a complete overview of each class, property and method of this database class?
 
 Just head over to the [`API.md`](https://github.com/jr-cologne/db-class/blob/master/src/API.md) file where you can find everything you need.
 
