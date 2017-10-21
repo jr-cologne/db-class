@@ -13,7 +13,7 @@
  * @author JR Cologne <kontakt@jr-cologne.de>
  * @copyright 2017 JR Cologne
  * @license https://github.com/jr-cologne/db-class/blob/master/LICENSE MIT
- * @version v2.0.0
+ * @version v2.0.1
  * @link https://github.com/jr-cologne/db-class GitHub Repository
  * @link https://packagist.org/packages/jr-cologne/db-class Packagist site
  *
@@ -28,7 +28,7 @@
 namespace JRCologne\Utils\Database;
 
 use JRCologne\Utils\Database\QueryBuilder;
-use JRCologne\Utils\Database\Exceptions\DBException;
+use JRCologne\Utils\Database\Exceptions\UnsupportedKeywordException;
 
 use \PDO;
 use \PDOException;
