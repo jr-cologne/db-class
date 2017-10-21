@@ -1,9 +1,9 @@
 # API
 
-This is a complete overview of each property and method of this database class.
+This is a complete overview of each class, property and method of this database class.
 
 
-## DB Class
+## `DB` Class
 
 The main and only class you actively work with in order to interact with a database.
 
@@ -400,7 +400,7 @@ For consistency, the method is used in every sort of query method with a potenti
 **Return Values:** `array`
 
 
-## QueryBuilder Class
+## `QueryBuilder` Class
 
 The query builder class which is creating all queries for this database class.
 
@@ -409,4 +409,386 @@ The query builder class which is creating all queries for this database class.
 
 ```php
 JRCologne\Utils\Database
+```
+
+
+### Properties
+
+#### `$table`
+
+**Description:** The current table which will be used for the query.
+
+**Visibility:** `protected`
+
+**Data Type:** `string`
+
+**Default Value:** -
+
+
+#### `$mode`
+
+**Description:** The mode or type of query.
+
+Supported modes:
+
+- select
+- insert
+- update
+- delete
+
+**Visibility:** `protected`
+
+**Data Type:** `string`
+
+**Default Value:** -
+
+
+#### `$columns`
+
+**Description:** The string of columns for the query.
+
+**Visibility:** `protected`
+
+**Data Type:** `string`
+
+**Default Value:** -
+
+
+#### `$where`
+
+**Description:** The string of the where clause for the query.
+
+**Visibility:** `protected`
+
+**Data Type:** `string`
+
+**Default Value:** -
+
+
+#### `$values`
+
+**Description:** The string of values for the insert query.
+
+**Visibility:** `protected`
+
+**Data Type:** `string`
+
+**Default Value:** -
+
+
+#### `$data`
+
+**Description:** The string of data for the update query.
+
+**Visibility:** `protected`
+
+**Data Type:** `string`
+
+**Default Value:** -
+
+
+### Methods
+
+#### `QueryBuilder::setTable()`
+
+**Description:**
+
+```php
+QueryBuilder::setTable(string $table)
+```
+
+Sets the table to be used in the query.
+
+**Visibility:** `public`
+
+**Parameters:**
+
+`string $table`
+
+**Return Values:** -
+
+
+#### `QueryBuilder::resetProperties()`
+
+**Description:**
+
+```php
+QueryBuilder::resetProperties()
+```
+
+Resets the properties for the query.
+
+**Visibility:** `public`
+
+**Parameters:** -
+
+**Return Values:** -
+
+
+#### `QueryBuilder::setMode()`
+
+**Description:**
+
+```php
+QueryBuilder::setMode(string $mode)
+```
+
+Sets the mode of the query.
+
+**Visibility:** `public`
+
+**Parameters:**
+
+`string $mode`:
+
+Supported modes:
+
+- select
+- insert
+- update
+- delete
+
+**Return Values:** -
+
+
+#### `QueryBuilder::setColumns()`
+
+**Description:**
+
+```php
+QueryBuilder::setColumns($columns)
+```
+
+Sets the columns for the query.
+
+**Visibility:** `public`
+
+**Parameters:**
+
+`mixed $columns`: A string or an array specifying the columns for the query.
+
+Examples of possible values:
+
+- `'*'`
+- `'username, password'`
+- `[ 'username', 'password' ]`
+
+**Return Values:** -
+
+
+#### `QueryBuilder::setWhere()`
+
+**Description:**
+
+```php
+QueryBuilder::setWhere(array $where)
+```
+
+Sets the where clause for the query.
+
+**Visibility:** `public`
+
+**Parameters:**
+
+`array $where`: An associative array of the format `column => value`.
+
+**Return Values:** -
+
+
+#### `QueryBuilder::setValues()`
+
+**Description:**
+
+```php
+QueryBuilder::setValues($values)
+```
+
+Sets the values for the insert query.
+
+**Visibility:** `public`
+
+**Parameters:**
+
+`mixed $values`: A string or an array specifying the values for the insert query.
+
+Examples of possible values:
+
+- `'username, password'`
+- `[ 'username', 'password' ]`
+
+**Return Values:** -
+
+
+#### `QueryBuilder::setData()`
+
+**Description:**
+
+```php
+QueryBuilder::setData(array $data)
+```
+
+Sets the data for the update query.
+
+**Visibility:** `public`
+
+**Parameters:**
+
+`array $data`: An associative array of the format `column => value`.
+
+**Return Values:** -
+
+
+#### `QueryBuilder::getQuery()`
+
+**Description:**
+
+```php
+QueryBuilder::getQuery()
+```
+
+Gets the build query from the method `QueryBuilder::build()`.
+
+**Visibility:** `public`
+
+**Parameters:** -
+
+**Return Values:** `string`
+
+
+#### `QueryBuilder::formatColumns()`
+
+**Description:**
+
+```php
+QueryBuilder::formatColumns($columns)
+```
+
+Formats the columns for the query.
+
+**Visibility:** `protected`
+
+**Parameters:**
+
+`mixed $columns`: A string or an array specifying the columns for the query.
+
+Examples of possible values:
+
+- `'*'`
+- `'username, password'`
+- `[ 'username', 'password' ]`
+
+**Return Values:** `string`
+
+
+#### `QueryBuilder::formatWhere()`
+
+**Description:**
+
+```php
+QueryBuilder::formatWhere(array $where)
+```
+
+Formats the where clause for the query.
+
+**Visibility:** `protected`
+
+**Parameters:**
+
+`array $where`: An associative array of the format `column => value`.
+
+**Return Values:** `string`
+
+
+#### `QueryBuilder::formatValues()`
+
+**Description:**
+
+```php
+QueryBuilder::formatValues($values)
+```
+
+Formats the values for the insert query.
+
+**Visibility:** `protected`
+
+**Parameters:**
+
+`mixed $values`: A string or an array specifying the values for the insert query.
+
+Examples of possible values:
+
+- `'username, password'`
+- `[ 'username', 'password' ]`
+
+**Return Values:** `string`
+
+
+#### `QueryBuilder::formatData()`
+
+**Description:**
+
+```php
+QueryBuilder::formatData(array $data)
+```
+
+Formats the data for the update query.
+
+**Visibility:** `protected`
+
+**Parameters:**
+
+`array $data`: An associative array of the format `column => value`.
+
+**Return Values:** `string`
+
+
+#### `QueryBuilder::formatValues()`
+
+**Description:**
+
+```php
+QueryBuilder::formatValues($values)
+```
+
+Formats the values for the insert query.
+
+**Visibility:** `protected`
+
+**Parameters:**
+
+`mixed $values`: A string or an array specifying the values for the insert query.
+
+Examples of possible values:
+
+- `'username, password'`
+- `[ 'username', 'password' ]`
+
+**Return Values:** `string`
+
+
+#### `QueryBuilder::build()`
+
+**Description:**
+
+```php
+QueryBuilder::build()
+```
+
+Builds the query.
+
+**Visibility:** `protected`
+
+**Parameters:** -
+
+**Return Values:** `string`
+
+
+## `UnsupportedKeywordException` Class
+
+An exception which is thrown when an unsupported keyword is used in the method `DB::retrieve()`.
+
+### Namespace
+
+```php
+JRCologne\Utils\Database\Exceptions
 ```
