@@ -1,6 +1,6 @@
 <?php
 
-require_once('../vendor/autoload.php');
+require_once '../vendor/autoload.php';
 
 use JRCologne\Utils\Database\DB;
 use JRCologne\Utils\Database\QueryBuilder;
