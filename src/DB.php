@@ -54,6 +54,17 @@ class DB extends PDO {
   ];
 
   /**
+   * Defines whether a connection to a database is established.
+   *
+   * Value:
+   * true if a connection to a database is established,
+   * false if a connection to a database isn't established (default)
+   *
+   * @var boolean
+   */
+  protected $connected = false;
+
+  /**
    * The results of the query from the method DB::select().
    *
    * The type is based on PDO::FETCH_MODE.
@@ -108,10 +119,21 @@ class DB extends PDO {
       }
     } catch (PDOException $e) {
       $this->pdo_exception = $e;
+      $this->connected = false;
       return false;
     }
 
+    $this->connected = true;
     return true;
+  }
+
+  /**
+   * Checks whether a connection to a database is established.
+   * 
+   * @return boolean
+   */
+  public function connected() {
+    return $this->connected;
   }
 
   /**
