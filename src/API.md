@@ -47,6 +47,17 @@ JRCologne\Utils\Database
 ```
 
 
+#### `$connected`
+
+**Description:** Defines whether a connection to a database is established.
+
+**Visibility:** `protected`
+
+**Data Type:** `boolean`
+
+**Default Value:** `false`
+
+
 #### `$results`
 
 **Description:** The results of the query from the method `DB::select()`.
@@ -124,6 +135,23 @@ Creates a connection to a specified database by PDO.
 `array $options = []`: An array of options that should be passed into the method `PDO::__construct()`
 
 **Return Values:** `boolean` true on success, false on failure
+
+
+#### `DB::connected()`
+
+**Description:**
+
+```php
+DB::connected()
+```
+
+Checks whether a connection to a database is established.
+
+**Visibility:** `public`
+
+**Parameters:** -
+
+**Return Values:** `boolean`
 
 
 #### `DB::table()`

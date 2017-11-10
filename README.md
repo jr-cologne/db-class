@@ -76,6 +76,20 @@ if ($db->connect('mysql:host=localhost;dbname=db-class-example;charset=utf8', 'r
 }
 ```
 
+### Checking Connection to Database
+
+You can also check the connection to the database by the method `DB::connected()` after connecting.
+
+Example:
+
+```php
+if ($db->connected()) {
+  echo 'Successfully connected to database';
+} else {
+  echo 'Connection failed';
+}
+```
+
 ### Retrieving Data from Database
 
 In order to retrieve data from a database, you need to walk through the following three steps:

@@ -13,7 +13,7 @@
  * @author JR Cologne <kontakt@jr-cologne.de>
  * @copyright 2017 JR Cologne
  * @license https://github.com/jr-cologne/db-class/blob/master/LICENSE MIT
- * @version v2.0.1
+ * @version v2.1.0
  * @link https://github.com/jr-cologne/db-class GitHub Repository
  * @link https://packagist.org/packages/jr-cologne/db-class Packagist site
  *
@@ -52,6 +52,17 @@ class DB extends PDO {
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
   ];
+
+  /**
+   * Defines whether a connection to a database is established.
+   *
+   * Value:
+   * true if a connection to a database is established,
+   * false if a connection to a database isn't established (default)
+   *
+   * @var boolean
+   */
+  protected $connected = false;
 
   /**
    * The results of the query from the method DB::select().
@@ -108,10 +119,21 @@ class DB extends PDO {
       }
     } catch (PDOException $e) {
       $this->pdo_exception = $e;
+      $this->connected = false;
       return false;
     }
 
+    $this->connected = true;
     return true;
+  }
+
+  /**
+   * Checks whether a connection to a database is established.
+   * 
+   * @return boolean
+   */
+  public function connected() {
+    return $this->connected;
   }
 
   /**
