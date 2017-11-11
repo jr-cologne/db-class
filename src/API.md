@@ -270,6 +270,8 @@ Returns the first record given in DB::results.
 
 On success: `array` (default) or other type based on `PDO::FETCH_MODE`
 
+If not existing: `null`
+
 On failure: `boolean` false
 
 

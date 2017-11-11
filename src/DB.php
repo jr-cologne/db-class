@@ -13,7 +13,7 @@
  * @author JR Cologne <kontakt@jr-cologne.de>
  * @copyright 2017 JR Cologne
  * @license https://github.com/jr-cologne/db-class/blob/master/LICENSE MIT
- * @version v2.1.0
+ * @version v2.1.1
  * @link https://github.com/jr-cologne/db-class GitHub Repository
  * @link https://packagist.org/packages/jr-cologne/db-class Packagist site
  *
@@ -212,11 +212,11 @@ class DB extends PDO {
   /**
    * Returns the first record given in DB::results.
    * 
-   * @return mixed on success: array (default), based on PDO::FETCH_MODE, on failure: boolean false
+   * @return mixed on success: array (default), based on PDO::FETCH_MODE, if not existing: null, on failure: boolean false
    */
   protected function first() {
     if (!$this->query_failed) {
-      return $this->results[0];
+      return isset($this->results[0]) ? $this->results[0] : null;
     }
 
     return false;
