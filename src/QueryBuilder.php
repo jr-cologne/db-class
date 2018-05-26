@@ -183,7 +183,7 @@ class QueryBuilder {
     foreach ($where as $column => $value) {
       $where_clause .= "`{$column}` = :where_{$column}";
 
-      if (!empty(next($where))) {
+      if (next($where) !== false) {
         $where_clause .= ' && ';
       }
     }
@@ -223,7 +223,7 @@ class QueryBuilder {
     foreach ($data as $column => $value) {
       $data_string .= "`{$column}` = :{$column}";
 
-      if (!empty(next($data))) {
+      if (next($data) !== false) {
         $data_string .= ', ';
       }
     }
