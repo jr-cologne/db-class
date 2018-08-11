@@ -11,9 +11,9 @@
  *
  * @package jr-cologne/db-class
  * @author JR Cologne <kontakt@jr-cologne.de>
- * @copyright 2017 JR Cologne
+ * @copyright 2018 JR Cologne
  * @license https://github.com/jr-cologne/db-class/blob/master/LICENSE MIT
- * @version v2.1.2
+ * @version v2.1.3
  * @link https://github.com/jr-cologne/db-class GitHub Repository
  * @link https://packagist.org/packages/jr-cologne/db-class Packagist site
  *
@@ -27,8 +27,10 @@
 
 namespace JRCologne\Utils\Database;
 
-use JRCologne\Utils\Database\QueryBuilder;
-use JRCologne\Utils\Database\Exceptions\UnsupportedKeywordException;
+use JRCologne\Utils\Database\{
+  QueryBuilder,
+  Exceptions\UnsupportedKeywordException
+};
 
 use \PDO;
 use \PDOException;
@@ -43,7 +45,7 @@ class DB extends PDO {
   protected $query_builder;
 
   /**
-   * The default options of this class for PDO which are passed into PDO::__construct.
+   * The default options of this class for PDO which are passed into PDO::__construct().
    * 
    * @var array $default_options
    */
@@ -54,7 +56,7 @@ class DB extends PDO {
   ];
 
   /**
-   * Defines whether a connection to a database is established.
+   * Indicates whether a connection to a database is established.
    *
    * Value:
    * true if a connection to a database is established,
@@ -86,7 +88,7 @@ class DB extends PDO {
   protected $query_failed = false;
 
   /**
-   * An PDOException instance. Is set when PDO raises an error.
+   * A PDOException instance. Is set when PDO raises an error.
    * 
    * @var PDOException $pdo_exception
    */
@@ -110,7 +112,7 @@ class DB extends PDO {
    * @param  array $options = [] array of options that should be passed into the method PDO::__construct()
    * @return boolean true on success, false on failure
    */
-  public function connect(string $dsn, string $username = null, string $password = null, array $options = []) {
+  public function connect(string $dsn, string $username = null, string $password = null, array $options = []) : bool {
     try {
       if (empty($options)) {
         parent::__construct($dsn, $username, $password, $this->default_options);
@@ -120,10 +122,12 @@ class DB extends PDO {
     } catch (PDOException $e) {
       $this->pdo_exception = $e;
       $this->connected = false;
+
       return false;
     }
 
     $this->connected = true;
+
     return true;
   }
 
@@ -132,7 +136,7 @@ class DB extends PDO {
    * 
    * @return boolean
    */
-  public function connected() {
+  public function connected() : bool {
     return $this->connected;
   }
 
@@ -142,8 +146,9 @@ class DB extends PDO {
    * @param  string $table
    * @return DB
    */
-  public function table(string $table) {
+  public function table(string $table) : self {
     $this->query_builder->setTable($table);
+
     return $this;
   }
 
@@ -155,7 +160,7 @@ class DB extends PDO {
    * @param  int $fetch_mode = PDO::FETCH_ASSOC the wished pdo fetch mode
    * @return DB
    */
-  public function select(string $columns, array $where = [], int $fetch_mode = PDO::FETCH_ASSOC) {
+  public function select(string $columns, array $where = [], int $fetch_mode = PDO::FETCH_ASSOC) : self {
     $this->query_builder->resetProperties();
     $this->query_builder->setMode('select');
     $this->query_builder->setColumns($columns);
@@ -191,9 +196,9 @@ class DB extends PDO {
   public function retrieve(string $keyword = 'all') {
     if (method_exists($this, $keyword)) {
       return $this->$keyword();
-    } else {
-      throw new UnsupportedKeywordException("Unsupported Keyword for method DB::retrieve()", 1);
     }
+    
+    throw new UnsupportedKeywordException("Unsupported Keyword for method DB::retrieve()");
   }
 
   /**
@@ -216,7 +221,7 @@ class DB extends PDO {
    */
   protected function first() {
     if (!$this->query_failed) {
-      return isset($this->results[0]) ? $this->results[0] : null;
+      return $this->results[0] ?? null;
     }
 
     return false;
@@ -228,7 +233,7 @@ class DB extends PDO {
    * @param  array $data assoc array of data to insert with the format column => value
    * @return boolean true on success, false on failure
    */
-  public function insert(array $data) {
+  public function insert(array $data) : bool {
     $this->query_builder->resetProperties();
     $this->query_builder->setMode('insert');
 
@@ -239,9 +244,11 @@ class DB extends PDO {
 
     try {
       $stmt = parent::prepare($this->query_builder->getQuery());
+
       return $stmt->execute($data);
     } catch (PDOException $e) {
       $this->pdo_exception = $e;
+
       return false;
     }
   }
@@ -262,24 +269,26 @@ class DB extends PDO {
     try {
       $stmt = parent::prepare($this->query_builder->getQuery());
 
-      $execution = [];
+      $successful_executions = 0;
 
       foreach ($data as $value) {
-        $execution[] = (int) $stmt->execute($value);
+        if ($stmt->execute($value)) {
+          $successful_executions++;
+        }
       }
 
       $data_amount = count($data);
-      $successful_executions = array_sum($execution);
 
-      if ($data_amount == $successful_executions) {
+      if ($data_amount === $successful_executions) {
         return true;
-      } else if ($data_amount != $successful_executions && $successful_executions >= 1) {
+      } else if ($successful_executions >= 1) {
         return 0;
-      } else {
-        return false;
       }
+
+      return false;
     } catch (PDOException $e) {
       $this->pdo_exception = $e;
+
       return false;
     }
   }
@@ -294,7 +303,7 @@ class DB extends PDO {
    * @param  array $where = [] assoc array with format column => value
    * @return boolean true on success, false on failure  
    */
-  public function update(array $data, array $where = []) {
+  public function update(array $data, array $where = []) : bool {
     $this->query_builder->resetProperties();
     $this->query_builder->setMode('update');
 
@@ -307,9 +316,11 @@ class DB extends PDO {
 
     try {
       $stmt = parent::prepare($this->query_builder->getQuery());
+
       return $stmt->execute(array_merge($data, $where));
     } catch (PDOException $e) {
       $this->pdo_exception = $e;
+
       return false;
     }
   }
@@ -323,7 +334,7 @@ class DB extends PDO {
    * @param  array $where = [] assoc array with the format column => value
    * @return boolean true on success, false on failure
    */
-  public function delete(array $where = []) {
+  public function delete(array $where = []) : bool {
     $this->query_builder->resetProperties();
     $this->query_builder->setMode('delete');
 
@@ -334,9 +345,11 @@ class DB extends PDO {
 
     try {
       $stmt = parent::prepare($this->query_builder->getQuery());
+
       return $stmt->execute($where);
     } catch (PDOException $e) {
       $this->pdo_exception = $e;
+
       return false;
     }
   }
@@ -346,7 +359,7 @@ class DB extends PDO {
    * 
    * @return PDOException
    */
-  public function getPDOException() {
+  public function getPDOException() : PDOException {
     return $this->pdo_exception;
   }
 
@@ -368,7 +381,7 @@ class DB extends PDO {
    * @param  array $where assoc array with the format column => value
    * @return array
    */
-  protected function formatWhereData(array $where) {
+  protected function formatWhereData(array $where) : array {
     foreach ($where as $column => $value) {
       $where_data['where_' . $column] = $value;
     }

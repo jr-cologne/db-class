@@ -11,9 +11,9 @@
  *
  * @package jr-cologne/db-class
  * @author JR Cologne <kontakt@jr-cologne.de>
- * @copyright 2017 JR Cologne
+ * @copyright 2018 JR Cologne
  * @license https://github.com/jr-cologne/db-class/blob/master/LICENSE MIT
- * @version v2.1.2
+ * @version v2.1.3
  * @link https://github.com/jr-cologne/db-class GitHub Repository
  * @link https://packagist.org/packages/jr-cologne/db-class Packagist site
  *
@@ -30,5 +30,5 @@ namespace JRCologne\Utils\Database\Exceptions;
 use \Exception;
 
 class UnsupportedKeywordException extends Exception {
-  
+  //
 }
