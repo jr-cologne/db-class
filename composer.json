@@ -1,7 +1,7 @@
 {
   "name": "jr-cologne/db-class",
   "type": "library",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "A simple database class with PHP, PDO and a query builder.",
   "keywords": [
     "database",
@@ -30,7 +30,7 @@
   ],
   "support": {
     "issues": "https://github.com/jr-cologne/db-class/issues",
-    "source": "https://github.com/jr-cologne/db-class/tree/v2.1.2",
+    "source": "https://github.com/jr-cologne/db-class/tree/v2.1.3",
     "docs": "https://github.com/jr-cologne/db-class/blob/README.md"
   }
 }

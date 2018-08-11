@@ -11,9 +11,9 @@
  *
  * @package jr-cologne/db-class
  * @author JR Cologne <kontakt@jr-cologne.de>
- * @copyright 2017 JR Cologne
+ * @copyright 2018 JR Cologne
  * @license https://github.com/jr-cologne/db-class/blob/master/LICENSE MIT
- * @version v2.1.2
+ * @version v2.1.3
  * @link https://github.com/jr-cologne/db-class GitHub Repository
  * @link https://packagist.org/packages/jr-cologne/db-class Packagist site
  *
@@ -139,11 +139,11 @@ class QueryBuilder {
   }
 
   /**
-   * Gets the build query from the method QueryBuilder::build().
+   * Gets the built query from the method QueryBuilder::build().
    * 
    * @return string
    */
-  public function getQuery() {
+  public function getQuery() : string {
     return $this->build();
   }
 
@@ -153,20 +153,22 @@ class QueryBuilder {
    * @param  mixed $columns
    * @return string
    */
-  protected function formatColumns($columns) {
+  protected function formatColumns($columns) : string {
     if (is_string($columns)) {
-      if ($columns == '*') {
+      if ($columns === '*') {
         return $columns;
       }
 
       $columns = explode(',', $columns);
 
-      $columns = array_map(function($column) {
+      $columns = array_map(function ($column) {
         return '`' . trim($column) . '`';
       }, $columns);
 
       return implode(', ', $columns);
-    } else if (is_array($columns)) {
+    }
+
+    if (is_array($columns)) {
       return '`' . implode('`, `', $columns) . '`';
     }
   }
@@ -177,7 +179,7 @@ class QueryBuilder {
    * @param  array $where
    * @return string
    */
-  protected function formatWhere(array $where) {
+  protected function formatWhere(array $where) : string {
     $where_clause = '';
 
     foreach ($where as $column => $value) {
@@ -197,10 +199,12 @@ class QueryBuilder {
    * @param  mixed $values
    * @return string
    */
-  protected function formatValues($values) {
+  protected function formatValues($values) : string {
     if (is_array($values)) {
       return ':' . implode(', :', $values);
-    } else if (is_string($values)) {
+    }
+
+    if (is_string($values)) {
       $values = explode(',', $values);
 
       $values = array_map(function($value) {
@@ -217,7 +221,7 @@ class QueryBuilder {
    * @param  array $data
    * @return string
    */
-  protected function formatData(array $data) {
+  protected function formatData(array $data) : string {
     $data_string = '';
 
     foreach ($data as $column => $value) {
@@ -236,7 +240,7 @@ class QueryBuilder {
    * 
    * @return string
    */
-  protected function build() {
+  protected function build() : string {
     $table = $this->table;
     $mode = $this->mode;
     $columns = $this->columns;
@@ -254,9 +258,11 @@ class QueryBuilder {
           $query = "SELECT {$columns} FROM `{$table}`";
         }
         break;
+
       case 'insert':
         $query = "INSERT INTO `{$table}` ({$columns}) VALUES ({$values})";
         break;
+
       case 'update':
         if (!empty($where)) {
           $query = "UPDATE `{$table}` SET {$data} WHERE {$where}";
@@ -264,6 +270,7 @@ class QueryBuilder {
           $query = "UPDATE `{$table}` SET {$data}";
         }
         break;
+        
       case 'delete':
         if (!empty($where)) {
           $query = "DELETE FROM `{$table}` WHERE {$where}";

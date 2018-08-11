@@ -117,7 +117,7 @@ Instantiates the class and sets `DB::query_builder` to the passed in `QueryBuild
 **Description:**
 
 ```php
-DB::connect(string $dsn, string $username = null, string $password = null, array $options = [])
+DB::connect(string $dsn, string $username = null, string $password = null, array $options = []) : bool
 ```
 
 Creates a connection to a specified database by PDO.
@@ -142,7 +142,7 @@ Creates a connection to a specified database by PDO.
 **Description:**
 
 ```php
-DB::connected()
+DB::connected() : bool
 ```
 
 Checks whether a connection to a database is established.
@@ -159,7 +159,7 @@ Checks whether a connection to a database is established.
 **Description:**
 
 ```php
-DB::table(string $table)
+DB::table(string $table) : self
 ```
 
 Sets the table to use for the following query.
@@ -178,7 +178,7 @@ Sets the table to use for the following query.
 **Description:**
 
 ```php
-DB::select(string $columns, array $where = [], int $fetch_mode = PDO::FETCH_ASSOC)
+DB::select(string $columns, array $where = [], int $fetch_mode = PDO::FETCH_ASSOC) : self
 ```
 
 Executes a SELECT query and fetches data from a database.
@@ -280,7 +280,7 @@ On failure: `boolean` false
 **Description:**
 
 ```php
-DB::insert(array $data)
+DB::insert(array $data) : bool
 ```
 
 Inserts data into a database.
@@ -320,7 +320,7 @@ Inserts multiple rows of data into a database.
 **Description:**
 
 ```php
-DB::update(array $data, array $where = [])
+DB::update(array $data, array $where = []) : bool
 ```
 
 Updates data of a database.
@@ -354,7 +354,7 @@ Example, which essentially translates to the where clause ``WHERE `username` = '
 **Description:**
 
 ```php
-DB::delete(array $where = [])
+DB::delete(array $where = []) : bool
 ```
 
 Deletes data from a database.
@@ -386,7 +386,7 @@ Example, which essentially translates to the where clause ``WHERE `username` = '
 **Description:**
 
 ```php
-DB::getPDOException()
+DB::getPDOException() : PDOException
 ```
 
 Returns the `PDOException` set when PDO raised an error.
@@ -403,7 +403,7 @@ Returns the `PDOException` set when PDO raised an error.
 **Description:**
 
 ```php
-DB::formatWhereData(array $where)
+DB::formatWhereData(array $where) : array
 ```
 
 Formats the data for the where clause which is passed into the method `PDOStatement::execute()`.
@@ -673,7 +673,7 @@ Sets the data for the update query.
 **Description:**
 
 ```php
-QueryBuilder::getQuery()
+QueryBuilder::getQuery() : string
 ```
 
 Gets the build query from the method `QueryBuilder::build()`.
@@ -690,7 +690,7 @@ Gets the build query from the method `QueryBuilder::build()`.
 **Description:**
 
 ```php
-QueryBuilder::formatColumns($columns)
+QueryBuilder::formatColumns($columns) : string
 ```
 
 Formats the columns for the query.
@@ -715,7 +715,7 @@ Examples of possible values:
 **Description:**
 
 ```php
-QueryBuilder::formatWhere(array $where)
+QueryBuilder::formatWhere(array $where) : string
 ```
 
 Formats the where clause for the query.
@@ -734,7 +734,7 @@ Formats the where clause for the query.
 **Description:**
 
 ```php
-QueryBuilder::formatValues($values)
+QueryBuilder::formatValues($values) : string
 ```
 
 Formats the values for the insert query.
@@ -758,7 +758,7 @@ Examples of possible values:
 **Description:**
 
 ```php
-QueryBuilder::formatData(array $data)
+QueryBuilder::formatData(array $data) : string
 ```
 
 Formats the data for the update query.
@@ -772,36 +772,12 @@ Formats the data for the update query.
 **Return Values:** `string`
 
 
-#### `QueryBuilder::formatValues()`
-
-**Description:**
-
-```php
-QueryBuilder::formatValues($values)
-```
-
-Formats the values for the insert query.
-
-**Visibility:** `protected`
-
-**Parameters:**
-
-`mixed $values`: A string or an array specifying the values for the insert query.
-
-Examples of possible values:
-
-- `'username, password'`
-- `[ 'username', 'password' ]`
-
-**Return Values:** `string`
-
-
 #### `QueryBuilder::build()`
 
 **Description:**
 
 ```php
-QueryBuilder::build()
+QueryBuilder::build() : string
 ```
 
 Builds the query.
