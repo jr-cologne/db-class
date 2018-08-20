@@ -13,9 +13,14 @@
   "require": {
     "php": ">=7.0"
   },
+  "require-dev": {
+    "phpunit/phpunit": "^7",
+    "phpunit/dbunit": "^4.0"
+  },
   "autoload": {
     "psr-4": {
-      "JRCologne\\Utils\\Database\\": "src/"
+      "JRCologne\\Utils\\Database\\": "src/",
+      "JRCologne\\Utils\\Database\\Tests\\": "tests/"
     }
   },
   "homepage": "https://github.com/jr-cologne/db-class",

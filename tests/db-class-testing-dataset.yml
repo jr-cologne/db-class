@@ -1,0 +1,7 @@
+users:
+  -
+    username: "John"
+    password: "ilovecats123"
+  -
+    username: "Billy"
+    password: "ilovecats123"
