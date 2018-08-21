@@ -13,7 +13,7 @@
  * @author JR Cologne <kontakt@jr-cologne.de>
  * @copyright 2018 JR Cologne
  * @license https://github.com/jr-cologne/db-class/blob/master/LICENSE MIT
- * @version v2.1.3
+ * @version v2.2.0
  * @link https://github.com/jr-cologne/db-class GitHub Repository
  * @link https://packagist.org/packages/jr-cologne/db-class Packagist site
  *
@@ -22,7 +22,7 @@
  * DB.php
  *
  * The main and only class you actively work with in order to interact with a database.
- * 
+ *
  */
 
 namespace JRCologne\Utils\Database;
@@ -39,14 +39,14 @@ class DB extends PDO {
 
   /**
    * The instance of the query builder.
-   * 
+   *
    * @var QueryBuilder $query_builder
    */
   protected $query_builder;
 
   /**
    * The default options of this class for PDO which are passed into PDO::__construct().
-   * 
+   *
    * @var array $default_options
    */
   protected $default_options = [
@@ -71,7 +71,7 @@ class DB extends PDO {
    *
    * The type is based on PDO::FETCH_MODE.
    * Default: array
-   * 
+   *
    * @var mixed $results
    */
   protected $results;
@@ -82,21 +82,21 @@ class DB extends PDO {
    * Value:
    * true if query failed,
    * false if query was successful
-   * 
+   *
    * @var boolean $query_failed
    */
   protected $query_failed = false;
 
   /**
    * A PDOException instance. Is set when PDO raises an error.
-   * 
+   *
    * @var PDOException $pdo_exception
    */
   protected $pdo_exception;
 
   /**
    * Instantiates the class and sets DB::query_builder to the passed in QueryBuilder instance.
-   * 
+   *
    * @param QueryBuilder $query_builder
    */
   public function __construct(QueryBuilder $query_builder) {
@@ -105,7 +105,7 @@ class DB extends PDO {
 
   /**
    * Creates a connection to a specified database by PDO.
-   * 
+   *
    * @param  string $dsn the data source name of the method PDO::__construct()
    * @param  string $username = null
    * @param  string $password = null
@@ -133,7 +133,7 @@ class DB extends PDO {
 
   /**
    * Checks whether a connection to a database is established.
-   * 
+   *
    * @return boolean
    */
   public function connected() : bool {
@@ -142,7 +142,7 @@ class DB extends PDO {
 
   /**
    * Sets the table to use for the following query.
-   * 
+   *
    * @param  string $table
    * @return DB
    */
@@ -188,22 +188,22 @@ class DB extends PDO {
    * Keywords:
    * - 'all' retrieves the whole dataset
    * - 'first' retrieves the first record
-   * 
+   *
    * @param  string $keyword = 'all' the keyword for the amount of data to retrieve
    * @return mixed based on method called by $keyword
-   * @throws UnsupportedKeywordException is thrown if wrong $keyword is used 
+   * @throws UnsupportedKeywordException is thrown if wrong $keyword is used
    */
   public function retrieve(string $keyword = 'all') {
     if (method_exists($this, $keyword)) {
       return $this->$keyword();
     }
-    
+
     throw new UnsupportedKeywordException("Unsupported Keyword for method DB::retrieve()");
   }
 
   /**
    * Returns the whole dataset given in DB::results.
-   * 
+   *
    * @return mixed on success: array (default), based on PDO::FETCH_MODE, on failure: boolean false
    */
   protected function all() {
@@ -216,7 +216,7 @@ class DB extends PDO {
 
   /**
    * Returns the first record given in DB::results.
-   * 
+   *
    * @return mixed on success: array (default), based on PDO::FETCH_MODE, if not existing: null, on failure: boolean false
    */
   protected function first() {
@@ -229,7 +229,7 @@ class DB extends PDO {
 
   /**
    * Inserts data into a database.
-   * 
+   *
    * @param  array $data assoc array of data to insert with the format column => value
    * @return boolean true on success, false on failure
    */
@@ -255,7 +255,7 @@ class DB extends PDO {
 
   /**
    * Inserts multiple rows of data into a database.
-   * 
+   *
    * @param  string $columns
    * @param  array $data 2d array with assoc array of data (with the format column => value) for each row
    * @return mixed true on success, 0 if at least one record could be inserted, false on failure
@@ -298,10 +298,10 @@ class DB extends PDO {
    *
    * Attention: If you do not provide a where clause,
    * all records of the table will be updated.
-   * 
+   *
    * @param  array $data assoc array of new data with the format column => value
    * @param  array $where = [] assoc array with format column => value
-   * @return boolean true on success, false on failure  
+   * @return boolean true on success, false on failure
    */
   public function update(array $data, array $where = []) : bool {
     $this->query_builder->resetProperties();
@@ -330,7 +330,7 @@ class DB extends PDO {
    *
    * Attention: If you do not provide a where clause,
    * all records of the table will be deleted.
-   * 
+   *
    * @param  array $where = [] assoc array with the format column => value
    * @return boolean true on success, false on failure
    */
@@ -356,7 +356,7 @@ class DB extends PDO {
 
   /**
    * Returns the PDOException set when PDO raised an error.
-   * 
+   *
    * @return PDOException
    */
   public function getPDOException() : PDOException {
@@ -377,7 +377,7 @@ class DB extends PDO {
    * );
    *
    * For consistency, the method is used in every sort of query method with a potential where clause.
-   * 
+   *
    * @param  array $where assoc array with the format column => value
    * @return array
    */

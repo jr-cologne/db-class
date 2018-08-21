@@ -13,7 +13,7 @@
  * @author JR Cologne <kontakt@jr-cologne.de>
  * @copyright 2018 JR Cologne
  * @license https://github.com/jr-cologne/db-class/blob/master/LICENSE MIT
- * @version v2.1.3
+ * @version v2.2.0
  * @link https://github.com/jr-cologne/db-class GitHub Repository
  * @link https://packagist.org/packages/jr-cologne/db-class Packagist site
  *
@@ -22,7 +22,7 @@
  * QueryBuilder.php
  *
  * The query builder class which is creating all queries for this database class.
- * 
+ *
  */
 
 namespace JRCologne\Utils\Database;
@@ -31,7 +31,7 @@ class QueryBuilder {
 
   /**
    * The current table which will be used for the query.
-   * 
+   *
    * @var string $table
    */
   protected $table;
@@ -44,42 +44,42 @@ class QueryBuilder {
    * - insert
    * - update
    * - delete
-   * 
+   *
    * @var string $mode
    */
   protected $mode;
 
   /**
    * The string of columns for the query.
-   * 
+   *
    * @var string $columns
    */
   protected $columns;
 
   /**
    * The string of the where clause for the query.
-   * 
+   *
    * @var string $where
    */
   protected $where;
 
   /**
    * The string of values for the insert query.
-   * 
+   *
    * @var string $values
    */
   protected $values;
 
   /**
    * The string of data for the update query.
-   * 
+   *
    * @var string $data
    */
   protected $data;
 
   /**
    * Sets the table to be used in the query.
-   * 
+   *
    * @param string $table
    */
   public function setTable(string $table) {
@@ -95,7 +95,7 @@ class QueryBuilder {
 
   /**
    * Sets the mode of the query.
-   * 
+   *
    * @param string $mode
    */
   public function setMode(string $mode) {
@@ -104,7 +104,7 @@ class QueryBuilder {
 
   /**
    * Sets the columns for the query.
-   * 
+   *
    * @param mixed $columns
    */
   public function setColumns($columns) {
@@ -113,7 +113,7 @@ class QueryBuilder {
 
   /**
    * Sets the where clause for the query.
-   * 
+   *
    * @param array $where
    */
   public function setWhere(array $where) {
@@ -122,7 +122,7 @@ class QueryBuilder {
 
   /**
    * Sets the values for the insert query.
-   * 
+   *
    * @param mixed $values
    */
   public function setValues($values) {
@@ -131,7 +131,7 @@ class QueryBuilder {
 
   /**
    * Sets the data for the update query.
-   * 
+   *
    * @param array $data
    */
   public function setData(array $data) {
@@ -140,7 +140,7 @@ class QueryBuilder {
 
   /**
    * Gets the built query from the method QueryBuilder::build().
-   * 
+   *
    * @return string
    */
   public function getQuery() : string {
@@ -149,7 +149,7 @@ class QueryBuilder {
 
   /**
    * Formats the columns for the query.
-   * 
+   *
    * @param  mixed $columns
    * @return string
    */
@@ -175,7 +175,7 @@ class QueryBuilder {
 
   /**
    * Formats the where clause for the query.
-   * 
+   *
    * @param  array $where
    * @return string
    */
@@ -195,7 +195,7 @@ class QueryBuilder {
 
   /**
    * Formats the values for the insert query.
-   * 
+   *
    * @param  mixed $values
    * @return string
    */
@@ -217,7 +217,7 @@ class QueryBuilder {
 
   /**
    * Formats the data for the update query.
-   * 
+   *
    * @param  array $data
    * @return string
    */
@@ -237,7 +237,7 @@ class QueryBuilder {
 
   /**
    * Builds the query.
-   * 
+   *
    * @return string
    */
   protected function build() : string {
@@ -270,7 +270,7 @@ class QueryBuilder {
           $query = "UPDATE `{$table}` SET {$data}";
         }
         break;
-        
+
       case 'delete':
         if (!empty($where)) {
           $query = "DELETE FROM `{$table}` WHERE {$where}";
@@ -282,5 +282,5 @@ class QueryBuilder {
 
     return $query;
   }
-  
+
 }

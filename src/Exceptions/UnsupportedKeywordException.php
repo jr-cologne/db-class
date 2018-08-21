@@ -13,7 +13,7 @@
  * @author JR Cologne <kontakt@jr-cologne.de>
  * @copyright 2018 JR Cologne
  * @license https://github.com/jr-cologne/db-class/blob/master/LICENSE MIT
- * @version v2.1.3
+ * @version v2.2.0
  * @link https://github.com/jr-cologne/db-class GitHub Repository
  * @link https://packagist.org/packages/jr-cologne/db-class Packagist site
  *
@@ -22,7 +22,7 @@
  * UnsupportedKeywordException.php
  *
  * An exception which is thrown when an unsupported keyword is used in the method DB::retrieve().
- * 
+ *
  */
 
 namespace JRCologne\Utils\Database\Exceptions;
