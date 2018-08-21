@@ -1,0 +1,20 @@
+language: php
+
+php:
+  - 7.0
+  - 7.1
+  - 7.2
+
+sudo: false
+
+services:
+  - mysql
+  
+before_install:
+  - mysql < tests/db-class-testing.sql
+  
+install:
+  - composer install
+  
+script:
+  - ./vendor/bin/phpunit --configuration phpunit.travis.xml
