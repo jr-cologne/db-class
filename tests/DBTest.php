@@ -2,7 +2,6 @@
 
 namespace JRCologne\Utils\Database\Tests;
 
-use \ArgumentCountError;
 use \TypeError;
 use \PDOException;
 
@@ -17,7 +16,7 @@ class DBTest extends DatabaseTestCase {
   }
 
   public function test_constructor_without_query_builder_throws_exception() {
-    $this->expectException(ArgumentCountError::class);
+    $this->expectException(TypeError::class);
 
     new DB;
   }
