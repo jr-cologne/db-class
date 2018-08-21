@@ -1,5 +1,7 @@
 # db-class
 
+[![Build Status](https://travis-ci.org/jr-cologne/db-class.svg?branch=master)](https://travis-ci.org/jr-cologne/db-class)
+
 This project is a simple database class with PHP, PDO and a query builder.
 
 The class extends PDO for more control and in order to keep all features of PDO.
