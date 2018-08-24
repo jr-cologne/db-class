@@ -200,6 +200,20 @@ if ($db->table('users')->delete([
 }
 ```
 
+### Custom Logical Operators in Where Clause
+
+Since the release of [version 2.3](https://github.com/jr-cologne/db-class/releases/tag/v2.3.0), a where clause can also have custom logical operators.
+
+This is how a where clause with custom logical operators could look like when retrieving data from a database:
+
+```php
+$data = $db->table('users')->select('*', [
+  'id' => 1,
+  '||',
+  'username' => 'test'
+])->retrieve();
+```
+
 ### Using PDO's functionality
 
 Since the database class is extending PDO, you can use the whole functionality of PDO with this class as well.
