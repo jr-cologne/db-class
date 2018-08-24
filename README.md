@@ -149,9 +149,9 @@ if ($inserted) {
 }
 ```
 
-### Updating Data of Database
+### Updating Data from Database
 
-In case you want to update data of a database, you can use the method `DB::update()`.
+In case you want to update data from a database, you can use the method `DB::update()`.
 
 The following steps are required:
 
@@ -249,11 +249,9 @@ You want to see further examples of using the database class or you just want to
 
 ## Contributing
 
-Feel free to contribute to this project! It would be awesome for me if somebody contributes to it.
+Feel free to contribute to this project! Any kind of contribution is highly appreciated.
 
-So don't be shy and start coding! If you want to make sure that I like your idea, you can contact me by an Issue.
-
-But if you decide to contribute to this project, keep in mind that finally, it is my choice to merge your Pull Request or not, so also be prepared for a negative decision.
+In case you have any questions regarding your contribution, do not hesitate to open an Issue.
 
 ## Versioning
 
