@@ -383,6 +383,11 @@ class DB extends PDO {
    */
   protected function formatWhereData(array $where) : array {
     foreach ($where as $column => $value) {
+      if (is_numeric($column)) {
+        next($where);
+        continue;
+      }
+
       $where_data['where_' . $column] = $value;
     }
 

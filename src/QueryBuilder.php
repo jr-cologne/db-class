@@ -183,9 +183,15 @@ class QueryBuilder {
     $where_clause = '';
 
     foreach ($where as $column => $value) {
+      if (is_numeric($column)) {
+        $where_clause .= " {$value} ";
+        next($where);
+        continue;
+      }
+
       $where_clause .= "`{$column}` = :where_{$column}";
 
-      if (next($where) !== false) {
+      if ( next($where) !== false && !is_null(key($where)) && !is_numeric(key($where)) ) {
         $where_clause .= ' && ';
       }
     }
