@@ -13,7 +13,7 @@
  * @author JR Cologne <kontakt@jr-cologne.de>
  * @copyright 2018 JR Cologne
  * @license https://github.com/jr-cologne/db-class/blob/master/LICENSE MIT
- * @version v2.3.0
+ * @version v2.4.0
  * @link https://github.com/jr-cologne/db-class GitHub Repository
  * @link https://packagist.org/packages/jr-cologne/db-class Packagist site
  *
@@ -183,16 +183,23 @@ class QueryBuilder {
     $where_clause = '';
 
     foreach ($where as $column => $value) {
-      if (is_numeric($column)) {
-        $where_clause .= " {$value} ";
-        next($where);
-        continue;
+      $logical_operator = null;
+
+      if (is_numeric($column) && is_array($value)) {
+        $where_clause .= "`{$value[0]}` {$value[1]} :where_{$value[0]}";
+      } else if (is_numeric($column) && is_string($value)) {
+        $logical_operator = $value;
+      } else {
+        $where_clause .= "`{$column}` = :where_{$column}";
       }
 
-      $where_clause .= "`{$column}` = :where_{$column}";
+      $next_value = next($where);
+      $next_key = key($where);
 
-      if ( next($where) !== false && !is_null(key($where)) && !is_numeric(key($where)) ) {
-        $where_clause .= ' && ';
+      if ( $next_value !== false && !is_null($next_key) && (!is_numeric($next_key) || !is_string($next_value)) )  {
+        $logical_operator = $logical_operator ?? '&&';
+
+        $where_clause .= " {$logical_operator} ";
       }
     }
 

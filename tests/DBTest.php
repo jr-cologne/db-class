@@ -13,7 +13,7 @@
  * @author JR Cologne <kontakt@jr-cologne.de>
  * @copyright 2018 JR Cologne
  * @license https://github.com/jr-cologne/db-class/blob/master/LICENSE MIT
- * @version v2.3.0
+ * @version v2.4.0
  * @link https://github.com/jr-cologne/db-class GitHub Repository
  * @link https://packagist.org/packages/jr-cologne/db-class Packagist site
  *
@@ -119,11 +119,34 @@ class DBTest extends DatabaseTestCase {
     );
   }
 
-  public function test_retrieve_method_returns_data_based_on_where_clause_with_custom_operator() {
+  public function test_retrieve_method_returns_data_based_on_where_clause_with_custom_logical_operator() {
     $this->assertEquals('John',
       $this->getDBConnection()
         ->table('users')
-        ->select('username', [ 'id' => 1, '||', 'username' => 'John', '&&', 'password' => 'ilovecats123' ])
+        ->select('username', [
+          'id' => 1,
+          '||',
+          'username' => 'John',
+          '&&',
+          'password' => 'ilovecats123'
+        ])
+        ->retrieve('first')['username']
+    );
+  }
+
+  public function test_retrieve_method_returns_data_based_on_where_clause_with_custom_comparison_operator() {
+    $this->assertEquals('John',
+      $this->getDBConnection()
+        ->table('users')
+        ->select('username', [
+          [
+            'id',
+            '!=',
+            2
+          ],
+          'username' => 'John',
+          'password' => 'ilovecats123'
+        ])
         ->retrieve('first')['username']
     );
   }
@@ -347,7 +370,7 @@ class DBTest extends DatabaseTestCase {
     );
   }
 
-  public function test_update_method_updates_data_in_database_based_on_custom_where_clause() {
+  public function test_update_method_updates_data_in_database_based_on_where_clause_with_custom_logical_operator() {
     $this->getDBConnection()
       ->table('users')
       ->update([
@@ -356,6 +379,30 @@ class DBTest extends DatabaseTestCase {
         'username' => 'John',
         '||',
         'id' => 1,
+        'password' => 'ilovecats123'
+      ]);
+
+    $this->assertEquals('Johnny',
+      $this->getDBConnection()
+        ->table('users')
+        ->select('username', [ 'username' => 'Johnny' ])
+        ->retrieve('first')['username'] ?? null
+    );
+  }
+
+  public function test_update_method_updates_data_in_database_based_on_where_clause_with_custom_comparison_operator() {
+    $this->getDBConnection()
+      ->table('users')
+      ->update([
+        'username' => 'Johnny'
+      ], [
+        'username' => 'John',
+        '||',
+        [
+          'id',
+          '=',
+          1
+        ],
         'password' => 'ilovecats123'
       ]);
 
@@ -417,7 +464,7 @@ class DBTest extends DatabaseTestCase {
     );
   }
 
-  public function test_delete_method_deletes_data_in_database_based_on_custom_where_clause() {
+  public function test_delete_method_deletes_data_in_database_based_on_where_clause_with_custom_logical_operator() {
     $this->getDBConnection()
       ->table('users')
       ->delete([
@@ -425,6 +472,32 @@ class DBTest extends DatabaseTestCase {
         'username' => 'John',
         'AND',
         'password' => 'ilovecats123'
+      ]);
+
+    $this->assertCount(1,
+      $this->getDBConnection()
+        ->table('users')
+        ->select('*')
+        ->retrieve()
+    );
+  }
+
+  public function test_delete_method_deletes_data_in_database_based_on_where_clause_with_custom_comparison_operator() {
+    $this->getDBConnection()
+      ->table('users')
+      ->delete([
+        [
+          'id',
+          '>=',
+          1
+        ],
+        'username' => 'John',
+        'AND',
+        [
+          'password',
+          '!=',
+          'test123'
+        ]
       ]);
 
     $this->assertCount(1,
