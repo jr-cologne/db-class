@@ -200,7 +200,9 @@ if ($db->table('users')->delete([
 }
 ```
 
-### Custom Logical Operators in Where Clause
+### Custom Where Clauses
+
+#### Custom Logical Operators in Where Clause
 
 Since the release of [version 2.3](https://github.com/jr-cologne/db-class/releases/tag/v2.3.0), a where clause can also have custom logical operators.
 
@@ -211,6 +213,28 @@ $data = $db->table('users')->select('*', [
   'id' => 1,
   '||',
   'username' => 'test'
+])->retrieve();
+```
+
+#### Custom Comparison Operators in Where Clause
+
+Since the release of [version 2.4](https://github.com/jr-cologne/db-class/releases/tag/v2.4.0), a where clause can also have custom comparison operators.
+
+This is how a where clause with custom comparison operators could look like when retrieving data from a database:
+
+```php
+$data = $db->table('users')->select('*', [
+  [
+    'id',
+    '>=',
+    1
+  ],
+  'username' => 'test',
+  [
+    'password',
+    '!=',
+    'test123'
+  ]
 ])->retrieve();
 ```
 
